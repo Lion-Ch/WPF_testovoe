@@ -1,0 +1,91 @@
+﻿<Window x:Class="WPF_testovoe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_testovoe"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="900">
+    <Window.DataContext>
+        <local:AppViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <!--Меню-->
+        <Grid DockPanel.Dock="Top" Height="40">
+            <!--4 кнопки-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Button Style="{StaticResource MenuButton}">
+                    <Button.Content >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="30" Source="Resources/sales.png"/>
+                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Продажи"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Button Style="{StaticResource MenuButton}">
+                    <Button.Content >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="30" Source="/Resources/employees.png"/>
+                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Сотрудники"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Button Style="{StaticResource MenuButton}">
+                    <Button.Content >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="30" Source="/Resources/product.png"/>
+                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Товары"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="3">
+                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadCategoriesPageCommand}">
+                    <Button.Content >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="30" Source="/Resources/categories.png"/>
+                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Категории"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Grid>
+
+        <!--Контент-->
+        <Grid DockPanel.Dock="Bottom">
+            <ContentControl Content="{Binding CurrentView}"/>
+        </Grid>
+    </DockPanel>
+</Window>

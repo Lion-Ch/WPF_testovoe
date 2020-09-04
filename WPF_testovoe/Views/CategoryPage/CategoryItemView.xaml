@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="WPF_testovoe.Views.CategoryPage.CategoryItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_testovoe.Views.CategoryPage"
+             mc:Ignorable="d" 
+             d:DesignHeight="35" d:DesignWidth="350">
+    <Grid Background="{StaticResource Gallery}">
+        <Grid Height="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0" Background="{StaticResource Geyser}">
+                <TextBlock Grid.Column="0" Text="{Binding Id}"
+                           FontSize="18" FontWeight="Bold" 
+                           VerticalAlignment="Center" TextAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Column="1" Background="{StaticResource Gallery}">
+                <TextBlock Grid.Column="0" Text="{Binding Name}" 
+                           Foreground="{StaticResource Blue Yonder}" 
+                           FontSize="20" Padding="20 0"
+                           VerticalAlignment="Center" TextAlignment="Left"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
