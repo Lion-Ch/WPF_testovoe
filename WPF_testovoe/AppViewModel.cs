@@ -25,6 +25,7 @@ namespace WPF_testovoe
 
         public ICommand LoadCategoriesPageCommand { get; private set; }
         public ICommand LoadEmployeePageCommand { get; private set; }
+        public ICommand LoadProductPageCommand { get; private set; }
 
         public AppViewModel()
         {
@@ -33,6 +34,7 @@ namespace WPF_testovoe
 
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             LoadEmployeePageCommand   = new RelayCommand(LoadEmployeePage);
+            LoadProductPageCommand    = new RelayCommand(LoadProductPage);
         }
         public void LoadEmployeePage()
         {
@@ -41,6 +43,10 @@ namespace WPF_testovoe
         public void LoadCategoriesPage()
         {
             CurrentView = new CategoriesViewModel(db, notification);
+        }
+        public void LoadProductPage()
+        {
+            CurrentView = new ProductsViewModel(db, notification);
         }
     }
 }

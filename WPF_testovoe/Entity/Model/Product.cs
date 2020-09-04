@@ -36,6 +36,7 @@ namespace WPF_testovoe.Entity.Model
 
         public Product()
         {
+            Category = new Category();
             Sales = new List<Sale>();
         }
     }

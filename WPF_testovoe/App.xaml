@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:WPF_testovoe.ViewModels"
              xmlns:vCategory="clr-namespace:WPF_testovoe.Views.CategoryPage"
              xmlns:vEmployee="clr-namespace:WPF_testovoe.Views.EmpoyeePage"
+             xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
              xmlns:m="clr-namespace:WPF_testovoe.Entity.Model"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -13,6 +14,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
             <vEmployee:EmployeeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductsViewModel}">
+            <vProduct:ProductView/>
         </DataTemplate>
         
         <SolidColorBrush x:Key="Gallery" Color="#fff"></SolidColorBrush>

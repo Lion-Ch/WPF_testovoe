@@ -51,7 +51,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Column="2">
-                <Button Style="{StaticResource MenuButton}">
+                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadProductPageCommand}">
                     <Button.Content >
                         <Grid>
                             <Grid.ColumnDefinitions>
