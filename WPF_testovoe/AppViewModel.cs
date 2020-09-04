@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using WPF_testovoe.Entity.Context;
+using WPF_testovoe.Entity.Model;
 using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
 using WPF_testovoe.ViewModels;
@@ -33,7 +34,7 @@ namespace WPF_testovoe
 
         public void LoadCategoriesPage()
         {
-            CurrentView = new CategoriesViewModel(db, notification);
+            CurrentView = new CategoriesViewModel<Category>(db, notification);
         }
     }
 }

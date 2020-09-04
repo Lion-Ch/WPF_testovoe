@@ -9,36 +9,11 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel<TypeRecord>: ObservableObject, IDataPageService<TypeRecord>, IViewModel
-        where TypeRecord : Category
+    public class CategoriesViewModel<TypeRecord>: BaseDataPageViewModel<TypeRecord>, IDataPageService<TypeRecord>, INotificationPageService, IViewModel
+        where TypeRecord: Category
     {
-        private ShopContext db;
 
         #region Свойства
-        private TypeRecord _selectedRecord;
-        public  TypeRecord SelectedRecord
-        {
-            get { return _selectedRecord; }
-            set 
-            { 
-                OnPropertyChanged(ref _selectedRecord, value); 
-            }
-        }
-        private TypeRecord _newRecord;
-        public  TypeRecord NewRecord
-        {
-            get { return _newRecord; }
-            set { OnPropertyChanged(ref _newRecord, value); }
-        }
-        private ObservableCollection<TypeRecord> _records;
-        public  ObservableCollection<TypeRecord> Records
-        {
-            get { return _records; }
-            set
-            {
-                OnPropertyChanged(ref _records, value);
-            }
-        }
         private INotification _notification;
         public  INotification Notification
         {
@@ -55,19 +30,14 @@ namespace WPF_testovoe.ViewModels
 
         #region Конструктор
         public CategoriesViewModel(ShopContext shopContext, INotification notification)
+            :base(shopContext)
         {
-            db = shopContext;
             Notification = notification;
-            LoadRecords();
-
-            AddNewRecordCommand   = new RelayCommand(AddNewRecord);
-            DeleteRecordCommand   = new RelayCommand(DeleteRecord);
-            SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
         }
         #endregion
 
         #region DataService
-        private void DeleteRecord()
+        public override void DeleteRecord()
         {
             if (SelectedRecord != null)
             {
@@ -78,7 +48,7 @@ namespace WPF_testovoe.ViewModels
             else
                 Notification.SetData(Properties.Resources.RecordSelectedError, "Red");
         }
-        private void AddNewRecord()
+        public override void AddNewRecord()
         {
             if (NewRecord == null)
             {
@@ -91,12 +61,12 @@ namespace WPF_testovoe.ViewModels
             NewRecord = null;
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        private void LoadRecords()
+        public override void LoadRecords()
         {
-            Records = new ObservableCollection<Category>(db.Categories.ToList());
+            Records = new ObservableCollection<TypeRecord>(db.Categories.ToList());
             OnPropertyChanged("Categories");
         }
-        private void SaveAllRecords()
+        public override void SaveAllRecords()
         {
             db.SaveChanges();
             Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
