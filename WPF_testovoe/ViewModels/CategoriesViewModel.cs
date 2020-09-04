@@ -9,7 +9,7 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel: ObservableObject, IViewModel
+    public class CategoriesViewModel: ObservableObject, IDataService, IViewModel
     {
         private ShopContext db;
 
@@ -45,23 +45,27 @@ namespace WPF_testovoe.ViewModels
             set { OnPropertyChanged(ref _notification, value); }
         }
         #endregion
+
         #region Команды
         public ICommand AddNewRecordCommand { get; private set; }
         public ICommand DeleteRecordCommand { get; private set; }
         public ICommand SaveAllRecordsCommand { get; private set; }
         #endregion
 
-        public CategoriesViewModel(ShopContext shopContext)
+        #region Конструктор
+        public CategoriesViewModel(ShopContext shopContext, INotification notification)
         {
             db = shopContext;
-            Notification = new BaseNotification();
+            Notification = notification;
             LoadRecords();
 
             AddNewRecordCommand   = new RelayCommand(AddNewRecord);
             DeleteRecordCommand   = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
         }
+        #endregion
 
+        #region DataService
         private void DeleteRecord()
         {
             if (SelectedRecord != null)
@@ -96,5 +100,6 @@ namespace WPF_testovoe.ViewModels
             db.SaveChanges();
             Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
         }
+        #endregion
     }
 }

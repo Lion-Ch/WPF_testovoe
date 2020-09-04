@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using WPF_testovoe.Entity.Context;
+using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
 using WPF_testovoe.ViewModels;
 
@@ -12,6 +13,7 @@ namespace WPF_testovoe
     public class AppViewModel : ObservableObject
     {
         private ShopContext db;
+        private INotification notification;
 
         private IViewModel _currentView;
         public IViewModel CurrentView
@@ -25,12 +27,13 @@ namespace WPF_testovoe
         public AppViewModel()
         {
             db = new ShopContext();
+            notification = new BaseNotification();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
         }
 
         public void LoadCategoriesPage()
         {
-            CurrentView = new CategoriesViewModel(db);
+            CurrentView = new CategoriesViewModel(db, notification);
         }
     }
 }
