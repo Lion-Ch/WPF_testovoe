@@ -36,7 +36,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Column="1">
-                <Button Style="{StaticResource MenuButton}">
+                <Button Style="{StaticResource MenuButton}"  Command="{Binding LoadEmployeePageCommand}">
                     <Button.Content >
                         <Grid>
                             <Grid.ColumnDefinitions>

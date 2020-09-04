@@ -56,8 +56,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\EmpoyeePage\" />
-  </ItemGroup>
-
 </Project>

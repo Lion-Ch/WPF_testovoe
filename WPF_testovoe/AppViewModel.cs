@@ -24,14 +24,20 @@ namespace WPF_testovoe
         }
 
         public ICommand LoadCategoriesPageCommand { get; private set; }
+        public ICommand LoadEmployeePageCommand { get; private set; }
 
         public AppViewModel()
         {
             db = new ShopContext();
             notification = new BaseNotification();
-            LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
-        }
 
+            LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
+            LoadEmployeePageCommand   = new RelayCommand(LoadEmployeePage);
+        }
+        public void LoadEmployeePage()
+        {
+            CurrentView = new EmployeesViewModel(db, notification);
+        }
         public void LoadCategoriesPage()
         {
             CurrentView = new CategoriesViewModel(db, notification);
