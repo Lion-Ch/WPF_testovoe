@@ -52,6 +52,7 @@
                      Background="{StaticResource Gallery}"
                      Height="30" Margin="5 0" FontSize="16"/>
                 <Button Grid.Row="1" Grid.Column="2" Content="Удалить"
+                        Command="{Binding DeleteRecordCommand}"
                     Background="{StaticResource Gallery}"
                     Margin="5 10"/>
             </Grid>
@@ -83,7 +84,7 @@
             </Grid>
 
             <Button Grid.Column="1" Content="Сохранить все"
-                    Command="{Binding SaveAllRecordCommand}"
+                    Command="{Binding SaveAllRecordsCommand}"
                     Background="{StaticResource Gallery}"
                     VerticalAlignment="Top" Height="30" Margin="5"/>
             <Grid Grid.Column="1"

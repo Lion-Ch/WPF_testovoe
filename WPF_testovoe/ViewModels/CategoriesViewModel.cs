@@ -70,7 +70,10 @@ namespace WPF_testovoe.ViewModels
         private void DeleteRecord()
         {
             if (SelectedRecord != null)
+            {
                 db.Categories.Remove(SelectedRecord);
+                Categories.Remove(SelectedRecord);
+            }
         }
         private void AddNewRecord()
         {
