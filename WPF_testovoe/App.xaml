@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:WPF_testovoe"
              xmlns:vm="clr-namespace:WPF_testovoe.ViewModels"
              xmlns:v="clr-namespace:WPF_testovoe.Views.CategoryPage"
+             xmlns:m="clr-namespace:WPF_testovoe.Entity.Model"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type vm:CategoriesViewModel}">

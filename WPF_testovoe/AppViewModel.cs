@@ -34,7 +34,7 @@ namespace WPF_testovoe
 
         public void LoadCategoriesPage()
         {
-            CurrentView = new CategoriesViewModel<Category>(db, notification);
+            CurrentView = new CategoriesViewModel(db, notification);
         }
     }
 }

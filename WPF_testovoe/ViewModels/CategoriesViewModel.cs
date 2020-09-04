@@ -9,8 +9,7 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel<TypeRecord>: BaseDataPageViewModel<TypeRecord>, IDataPageService<TypeRecord>, INotificationPageService, IViewModel
-        where TypeRecord: Category
+    public class CategoriesViewModel: BaseDataPageViewModel<Category>,  INotificationPageService, IViewModel
     {
 
         #region Свойства
@@ -22,17 +21,12 @@ namespace WPF_testovoe.ViewModels
         }
         #endregion
 
-        #region Команды
-        public ICommand AddNewRecordCommand { get; private set; }
-        public ICommand DeleteRecordCommand { get; private set; }
-        public ICommand SaveAllRecordsCommand { get; private set; }
-        #endregion
-
         #region Конструктор
         public CategoriesViewModel(ShopContext shopContext, INotification notification)
             :base(shopContext)
         {
             Notification = notification;
+            NewRecord = new Category();
         }
         #endregion
 
@@ -50,7 +44,7 @@ namespace WPF_testovoe.ViewModels
         }
         public override void AddNewRecord()
         {
-            if (NewRecord == null)
+            if (String.IsNullOrEmpty(NewRecord.Name))
             {
                 Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
                 return;
@@ -58,12 +52,12 @@ namespace WPF_testovoe.ViewModels
 
             Records.Add(NewRecord);
             db.Categories.Add(NewRecord);
-            NewRecord = null;
+            NewRecord = new Category();
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         public override void LoadRecords()
         {
-            Records = new ObservableCollection<TypeRecord>(db.Categories.ToList());
+            Records = new ObservableCollection<Category>(db.Categories.ToList());
             OnPropertyChanged("Categories");
         }
         public override void SaveAllRecords()
