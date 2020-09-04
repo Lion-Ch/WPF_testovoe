@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <Grid Background="{StaticResource Geyser}" >
-            <ListView ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedRecord}"
+            <ListView ItemsSource="{Binding Records}"  SelectedItem="{Binding SelectedRecord}"
                       Background="{StaticResource Gallery}"  
                       Grid.Row="0" Margin="10,10,10,10">
                 <ListView.ItemTemplate>
@@ -47,7 +47,7 @@
                 <Label Grid.Row="0" Content="Изменение" 
                    Foreground="{StaticResource Blue Yonder}"
                    FontSize="18"/>
-                <TextBox Grid.Row="1" Text="{Binding SelectedRecord.Name, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox Grid.Row="1" Text="{Binding SelectedRecord.Name, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
                      Foreground="{StaticResource Blue Yonder}"  
                      Background="{StaticResource Gallery}"
                      Height="30" Margin="5 0" FontSize="16"/>
@@ -73,7 +73,7 @@
                 <Label Grid.Row="0" Content="Добавление"
                        Foreground="{StaticResource Blue Yonder}"
                        FontSize="18" />
-                <TextBox Grid.Row="1" Text="{Binding NewCategory.Name}" 
+                <TextBox Grid.Row="1" Text="{Binding NewRecord.Name, TargetNullValue=''}" 
                          Foreground="{StaticResource Blue Yonder}" 
                          Background="{StaticResource Gallery}"
                          Height="30" Margin="5 0" FontSize="16" />

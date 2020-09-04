@@ -118,18 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddNewRecordError" xml:space="preserve">
-    <value>Не удалось добавить новую запись!</value>
+    <value>Не удалось добавить новую запись</value>
     <comment>Ошибка добавления новой записи</comment>
+  </data>
+  <data name="AddNewRecordSuccessfully" xml:space="preserve">
+    <value>Новая запись успешно добавлена</value>
+  </data>
+  <data name="AllRecordsSavedSuccessfully" xml:space="preserve">
+    <value>Все записи сохранены</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="categories" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\categories.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DeleteRecordSuccessfully" xml:space="preserve">
+    <value>Запись удалена</value>
+    <comment>Успешное удаление записи</comment>
   </data>
   <data name="employees" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\employees.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="product" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\product.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RecordSelectedError" xml:space="preserve">
+    <value>Запись не выбрана</value>
   </data>
   <data name="sales" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sales.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

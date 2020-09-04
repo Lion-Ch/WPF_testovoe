@@ -8,5 +8,6 @@ namespace WPF_testovoe.Notifications
     {
         public string Color { get;  set; }
         public string Text { get; set; }
+        public void SetData( string text, string color);
     }
 }

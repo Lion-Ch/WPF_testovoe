@@ -61,11 +61,29 @@ namespace WPF_testovoe.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Не удалось добавить новую запись!.
+        ///   Ищет локализованную строку, похожую на Не удалось добавить новую запись.
         /// </summary>
         internal static string AddNewRecordError {
             get {
                 return ResourceManager.GetString("AddNewRecordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Новая запись успешно добавлена.
+        /// </summary>
+        internal static string AddNewRecordSuccessfully {
+            get {
+                return ResourceManager.GetString("AddNewRecordSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Все записи сохранены.
+        /// </summary>
+        internal static string AllRecordsSavedSuccessfully {
+            get {
+                return ResourceManager.GetString("AllRecordsSavedSuccessfully", resourceCulture);
             }
         }
         
@@ -76,6 +94,15 @@ namespace WPF_testovoe.Properties {
             get {
                 object obj = ResourceManager.GetObject("categories", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Запись удалена.
+        /// </summary>
+        internal static string DeleteRecordSuccessfully {
+            get {
+                return ResourceManager.GetString("DeleteRecordSuccessfully", resourceCulture);
             }
         }
         
@@ -96,6 +123,15 @@ namespace WPF_testovoe.Properties {
             get {
                 object obj = ResourceManager.GetObject("product", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Запись не выбрана.
+        /// </summary>
+        internal static string RecordSelectedError {
+            get {
+                return ResourceManager.GetString("RecordSelectedError", resourceCulture);
             }
         }
         

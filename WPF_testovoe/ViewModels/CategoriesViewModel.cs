@@ -23,19 +23,19 @@ namespace WPF_testovoe.ViewModels
                 OnPropertyChanged(ref _selectedRecord, value); 
             }
         }
-        private Category _newCategory;
-        public Category NewCategory
+        private Category _newRecord;
+        public Category NewRecord
         {
-            get { return _newCategory; }
-            set { OnPropertyChanged(ref _newCategory, value); }
+            get { return _newRecord; }
+            set { OnPropertyChanged(ref _newRecord, value); }
         }
-        private ObservableCollection<Category> _categories;
-        public ObservableCollection<Category> Categories
+        private ObservableCollection<Category> _records;
+        public ObservableCollection<Category> Records
         {
-            get { return _categories; }
+            get { return _records; }
             set
             {
-                OnPropertyChanged(ref _categories, value);
+                OnPropertyChanged(ref _records, value);
             }
         }
         private INotification _notification;
@@ -55,8 +55,6 @@ namespace WPF_testovoe.ViewModels
         {
             db = shopContext;
             Notification = new BaseNotification();
-            NewCategory = new Category { Name = "" };
-            SelectedRecord = null;
             LoadRecords();
 
             AddNewRecordCommand   = new RelayCommand(AddNewRecord);
@@ -69,26 +67,34 @@ namespace WPF_testovoe.ViewModels
             if (SelectedRecord != null)
             {
                 db.Categories.Remove(SelectedRecord);
-                Categories.Remove(SelectedRecord);
+                Records.Remove(SelectedRecord);
+                Notification.SetData(Properties.Resources.DeleteRecordSuccessfully, "Green");
             }
+            else
+                Notification.SetData(Properties.Resources.RecordSelectedError, "Red");
         }
         private void AddNewRecord()
         {
-            if (String.IsNullOrEmpty(NewCategory.Name))
-                Notification = Properties.Resources.AddNewRecordError;
+            if (NewRecord == null)
+            {
+                Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
+                return;
+            }
 
-            Categories.Add(NewCategory);
-            db.Categories.Add(NewCategory);
-            NewCategory = new Category { Name = "" };
+            Records.Add(NewRecord);
+            db.Categories.Add(NewRecord);
+            NewRecord = null;
+            Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         private void LoadRecords()
         {
-            Categories = new ObservableCollection<Category>(db.Categories.ToList());
+            Records = new ObservableCollection<Category>(db.Categories.ToList());
             OnPropertyChanged("Categories");
         }
         private void SaveAllRecords()
         {
             db.SaveChanges();
+            Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
         }
     }
 }
