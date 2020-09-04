@@ -9,13 +9,14 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel: ObservableObject, IDataService, IViewModel
+    public class CategoriesViewModel<TypeRecord>: ObservableObject, IDataPageService<TypeRecord>, IViewModel
+        where TypeRecord : Category
     {
         private ShopContext db;
 
         #region Свойства
-        private Category _selectedRecord;
-        public Category SelectedRecord
+        private TypeRecord _selectedRecord;
+        public  TypeRecord SelectedRecord
         {
             get { return _selectedRecord; }
             set 
@@ -23,14 +24,14 @@ namespace WPF_testovoe.ViewModels
                 OnPropertyChanged(ref _selectedRecord, value); 
             }
         }
-        private Category _newRecord;
-        public Category NewRecord
+        private TypeRecord _newRecord;
+        public  TypeRecord NewRecord
         {
             get { return _newRecord; }
             set { OnPropertyChanged(ref _newRecord, value); }
         }
-        private ObservableCollection<Category> _records;
-        public ObservableCollection<Category> Records
+        private ObservableCollection<TypeRecord> _records;
+        public  ObservableCollection<TypeRecord> Records
         {
             get { return _records; }
             set
@@ -39,7 +40,7 @@ namespace WPF_testovoe.ViewModels
             }
         }
         private INotification _notification;
-        public INotification Notification
+        public  INotification Notification
         {
             get { return _notification; }
             set { OnPropertyChanged(ref _notification, value); }
