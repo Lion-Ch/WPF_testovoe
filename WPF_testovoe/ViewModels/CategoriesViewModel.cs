@@ -52,6 +52,7 @@ namespace WPF_testovoe.ViewModels
         #region Команды
         public ICommand AddNewRecordCommand { get; private set; }
         public ICommand DeleteRecordCommand { get; private set; }
+        public ICommand SaveAllRecordsCommand { get; private set; }
         #endregion
 
         public CategoriesViewModel(ShopContext shopContext)
@@ -61,18 +62,15 @@ namespace WPF_testovoe.ViewModels
             SelectedRecord = null;
             LoadRecords();
 
-            AddNewRecordCommand = new RelayCommand(AddNewRecord);
+            AddNewRecordCommand   = new RelayCommand(AddNewRecord);
+            DeleteRecordCommand   = new RelayCommand(DeleteRecord);
+            SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
         }
 
         private void DeleteRecord()
         {
-            if(SelectedRecord != null)
+            if (SelectedRecord != null)
                 db.Categories.Remove(SelectedRecord);
-        }
-        private void LoadRecords()
-        {
-            Categories = new ObservableCollection<Category>(db.Categories.ToList());
-            OnPropertyChanged("Categories");
         }
         private void AddNewRecord()
         {
@@ -82,6 +80,15 @@ namespace WPF_testovoe.ViewModels
             Categories.Add(NewCategory);
             db.Categories.Add(NewCategory);
             NewCategory = new Category { Name = "" };
+        }
+        private void LoadRecords()
+        {
+            Categories = new ObservableCollection<Category>(db.Categories.ToList());
+            OnPropertyChanged("Categories");
+        }
+        private void SaveAllRecords()
+        {
+            db.SaveChanges();
         }
     }
 }
