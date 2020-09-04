@@ -4,8 +4,9 @@ using System.Text;
 
 namespace WPF_testovoe.Notifications
 {
-    interface INotification
+    public interface INotification
     {
+        public string Color { get;  set; }
         public string Text { get; set; }
     }
 }

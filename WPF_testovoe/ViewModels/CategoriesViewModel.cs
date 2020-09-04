@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using WPF_testovoe.Entity.Context;
@@ -37,12 +38,12 @@ namespace WPF_testovoe.ViewModels
                 OnPropertyChanged(ref _categories, value);
             }
         }
-        //private INotification _notification;
-        //public INotification Notification
-        //{
-        //    get { return _notification; }
-        //    set { OnPropertyChanged(ref _notification, value); }
-        //}
+        private INotification _notification;
+        public INotification Notification
+        {
+            get { return _notification; }
+            set { OnPropertyChanged(ref _notification, value); }
+        }
         #endregion
         #region Команды
         public ICommand AddNewRecordCommand { get; private set; }
@@ -53,6 +54,7 @@ namespace WPF_testovoe.ViewModels
         public CategoriesViewModel(ShopContext shopContext)
         {
             db = shopContext;
+            Notification = new BaseNotification();
             NewCategory = new Category { Name = "" };
             SelectedRecord = null;
             LoadRecords();
@@ -72,8 +74,8 @@ namespace WPF_testovoe.ViewModels
         }
         private void AddNewRecord()
         {
-            //if (String.IsNullOrEmpty(NewCategory.Name))
-            //    Notification.Text = Properties.Resources.AddNewRecordError;
+            if (String.IsNullOrEmpty(NewCategory.Name))
+                Notification = Properties.Resources.AddNewRecordError;
 
             Categories.Add(NewCategory);
             db.Categories.Add(NewCategory);
