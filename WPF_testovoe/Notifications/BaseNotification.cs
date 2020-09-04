@@ -5,7 +5,7 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.Notifications
 {
-    public abstract class BaseNotification: INotification
+    public class BaseNotification: INotification
     {
         public string Text { get; set; }
     }
