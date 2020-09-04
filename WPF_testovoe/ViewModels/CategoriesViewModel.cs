@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using WPF_testovoe.Entity.Context;
 using WPF_testovoe.Entity.Model;
+using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.ViewModels
@@ -42,12 +37,12 @@ namespace WPF_testovoe.ViewModels
                 OnPropertyChanged(ref _categories, value);
             }
         }
-        private string _notification;
-        public string Notification
-        {
-            get { return _notification; }
-            set { OnPropertyChanged(ref _notification, value); }
-        }
+        //private INotification _notification;
+        //public INotification Notification
+        //{
+        //    get { return _notification; }
+        //    set { OnPropertyChanged(ref _notification, value); }
+        //}
         #endregion
         #region Команды
         public ICommand AddNewRecordCommand { get; private set; }
@@ -57,7 +52,7 @@ namespace WPF_testovoe.ViewModels
 
         public CategoriesViewModel(ShopContext shopContext)
         {
-            db =shopContext;
+            db = shopContext;
             NewCategory = new Category { Name = "" };
             SelectedRecord = null;
             LoadRecords();
@@ -77,8 +72,8 @@ namespace WPF_testovoe.ViewModels
         }
         private void AddNewRecord()
         {
-            if (String.IsNullOrEmpty(NewCategory.Name))
-                Notification = Properties.Resources.AddNewRecordError;
+            //if (String.IsNullOrEmpty(NewCategory.Name))
+            //    Notification.Text = Properties.Resources.AddNewRecordError;
 
             Categories.Add(NewCategory);
             db.Categories.Add(NewCategory);
