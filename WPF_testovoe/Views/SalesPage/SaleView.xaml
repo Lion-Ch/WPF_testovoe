@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="WPF_testovoe.Views.SalesPage.SaleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:WPF_testovoe.Views.SalesPage"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{StaticResource Blue Yonder}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="{StaticResource Geyser}" >
+            <ListView ItemsSource="{Binding Records}"  SelectedItem="{Binding SelectedRecord}"
+                      Background="{StaticResource Gallery}"  
+                      Grid.Row="0" Margin="10,10,10,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <v:SaleItemView/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid HorizontalAlignment="Left" 
+                  VerticalAlignment="Top"
+                  Background="{StaticResource Geyser}" 
+                  Width="490" Margin="5 5 5 5" Height="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.6*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Content="Изменение" 
+                   Foreground="{StaticResource Blue Yonder}"
+                   FontSize="18"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox  Text="{Binding SelectedRecord.Employee.FullName, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                              Foreground="{StaticResource Blue Yonder}"  
+                              Background="{StaticResource Gallery}"
+                              Height="30" Margin="5 0" FontSize="16"
+                              IsReadOnly="True"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedRecord.Product.Name, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                             Foreground="{StaticResource Blue Yonder}"  
+                             Background="{StaticResource Gallery}"
+                             Height="30" Margin="5 0" FontSize="16"
+                             IsReadOnly="True"/>
+                    <TextBox Grid.Column="2" Text="{Binding SelectedRecord.Amount, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                             Foreground="{StaticResource Blue Yonder}"  
+                             Background="{StaticResource Gallery}"
+                             Height="30" Margin="5 0" FontSize="16"/>
+                </Grid>
+
+                <Button Grid.Row="1" Grid.Column="2" Content="Удалить"
+                        Command="{Binding DeleteRecordCommand}"
+                    Background="{StaticResource Gallery}"
+                    Margin="5 10"/>
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" 
+                  VerticalAlignment="Bottom"
+                  Background="{StaticResource Geyser}" 
+                  Width="490" Margin="5 5 5 5"  Height="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.6*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Content="Добавление"
+                       Foreground="{StaticResource Blue Yonder}"
+                       FontSize="18" />
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding Employees}"  SelectedItem="{Binding SelectedEmployee}"
+                              Foreground="{StaticResource Blue Yonder}" 
+                              Background="{StaticResource Gallery}"
+                              Height="30" Margin="5 0" FontSize="16">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FullName}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding Products}"  SelectedItem="{Binding SelectedProduct}"
+                              Foreground="{StaticResource Blue Yonder}" 
+                              Background="{StaticResource Gallery}"
+                              Height="30" Margin="5 0" FontSize="16">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBox Grid.Column="2" Text="{Binding NewRecord.Amount, TargetNullValue=''}" 
+                         Foreground="{StaticResource Blue Yonder}" 
+                         Background="{StaticResource Gallery}"
+                         Height="30" Margin="5 0" FontSize="16" />
+                </Grid>
+
+                <Button Grid.Row="1" Grid.Column="1" Content="Добавить" 
+                        Command="{Binding AddNewRecordCommand}"
+                        Background="{StaticResource Gallery}" 
+                        Margin="10"/>
+            </Grid>
+
+            <Button Grid.Column="1" Content="Сохранить все"
+                    Command="{Binding SaveAllRecordsCommand}"
+                    Background="{StaticResource Gallery}"
+                    VerticalAlignment="Top" Height="30" Margin="5"/>
+            <Grid Grid.Column="1"
+                  Background="{StaticResource Gallery}"
+                  Height="50"
+                  VerticalAlignment="Bottom">
+                <TextBlock Text="{Binding Notification.Text}" TextWrapping="Wrap"
+                           FontSize="14" Foreground="{Binding Notification.Color}" FontWeight="Bold"
+                           TextAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

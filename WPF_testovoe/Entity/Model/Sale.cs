@@ -20,7 +20,12 @@ namespace WPF_testovoe.Entity.Model
             get { return _productId; }
             set { OnPropertyChanged(ref _productId, value); }
         }
-        public Product Product { get; set; }
+        private Product _product;
+        public Product Product
+        {
+            get { return _product; }
+            set { OnPropertyChanged(ref _product, value); }
+        }
 
         private int _employeeId; 
         public int EmployeeId
@@ -28,6 +33,11 @@ namespace WPF_testovoe.Entity.Model
             get { return _employeeId; }
             set { OnPropertyChanged(ref _employeeId, value); }
         }
-        public Employee Employee { get; set; }
+        private Employee _employee;
+        public Employee Employee
+        {
+            get { return _employee; }
+            set { OnPropertyChanged(ref _employee, value); }
+        }
     }
 }

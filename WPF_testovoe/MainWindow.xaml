@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <Button Style="{StaticResource MenuButton}">
+                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadSalePageCommand}">
                     <Button.Content >
                         <Grid>
                             <Grid.ColumnDefinitions>

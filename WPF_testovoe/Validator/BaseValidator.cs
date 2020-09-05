@@ -67,8 +67,18 @@ namespace WPF_testovoe.Validator
 
         public bool IsValid(Sale sale)
         {
-            ErrorText = null;
-            return false;
+            if(sale == null)
+            {
+                ErrorText = "Не указано поле 'Продажа'";
+                return false;
+            }
+            if(sale.Amount < 0)
+            {
+                ErrorText = Properties.Resources.AmountValidateError + $", Продавец: {sale.Employee.FullName}, Товар: {sale.Product.Name}";
+                return false;
+            }
+
+            return true;
         }
 
         //Создать единое обобщение для ниже приведенных методов
