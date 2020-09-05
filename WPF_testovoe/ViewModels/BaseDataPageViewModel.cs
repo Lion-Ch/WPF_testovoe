@@ -8,6 +8,7 @@ using WPF_testovoe.Entity.Context;
 using WPF_testovoe.Entity.Model;
 using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
+using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
@@ -15,6 +16,7 @@ namespace WPF_testovoe.ViewModels
     {
         #region Поля
         protected ShopContext db;
+        protected IValidator validator;
         protected List<TypeRecord> ListNewRecords     { get; set; }
         protected List<TypeRecord> ListDeletedRecords { get; set; }
         #endregion
@@ -58,16 +60,19 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(ShopContext shopContext)
+        public BaseDataPageViewModel(ShopContext shopContext, IValidator v)
         {
             ListNewRecords     = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
-            db = shopContext;
-            LoadPage();
+
+            validator = v;
+            db        = shopContext;
 
             AddNewRecordCommand   = new RelayCommand(AddNewRecord);
             DeleteRecordCommand   = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
+
+            LoadPage();
         }
         #endregion
 

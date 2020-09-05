@@ -16,7 +16,6 @@ namespace WPF_testovoe.Entity.Model
             get { return _name; } 
             set { OnPropertyChanged(ref _name, value); } 
         }
-
         private int _amount;
         public int Amount 
         { 

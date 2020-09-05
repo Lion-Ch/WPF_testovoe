@@ -6,6 +6,7 @@ using WPF_testovoe.Entity.Context;
 using WPF_testovoe.Entity.Model;
 using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
+using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
@@ -22,8 +23,8 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public CategoriesViewModel(ShopContext shopContext, INotification notification)
-            :base(shopContext)
+        public CategoriesViewModel(ShopContext shopContext, IValidator v, INotification notification)
+            : base(shopContext, v)
         {
             Notification = notification;
             NewRecord = new Category();
@@ -35,8 +36,9 @@ namespace WPF_testovoe.ViewModels
         {
             if (SelectedRecord != null)
             {
-                db.Categories.Remove(SelectedRecord);
+                ListDeletedRecords.Add(SelectedRecord);
                 Records.Remove(SelectedRecord);
+
                 Notification.SetData(Properties.Resources.DeleteRecordSuccessfully, "Green");
             }
             else
@@ -50,19 +52,22 @@ namespace WPF_testovoe.ViewModels
                 return;
             }
 
+            ListNewRecords.Add(NewRecord);
             Records.Add(NewRecord);
-            db.Categories.Add(NewRecord);
             NewRecord = new Category();
+
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         public override void LoadPage()
         {
             Records = new ObservableCollection<Category>(db.Categories.ToList());
-            OnPropertyChanged("Categories");
         }
         public override void SaveAllRecords()
         {
+            db.Categories.AddRange(ListNewRecords);
+            db.Categories.RemoveRange(ListDeletedRecords);
             db.SaveChanges();
+
             Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
         }
         #endregion

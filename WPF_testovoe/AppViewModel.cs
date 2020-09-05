@@ -7,14 +7,16 @@ using WPF_testovoe.Entity.Context;
 using WPF_testovoe.Entity.Model;
 using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
+using WPF_testovoe.Validator;
 using WPF_testovoe.ViewModels;
 
 namespace WPF_testovoe
 {
     public class AppViewModel : ObservableObject
     {
-        private ShopContext db;
+        private ShopContext   db;
         private INotification notification;
+        private IValidator    validator;
 
         private IViewModel _currentView;
         public IViewModel CurrentView
@@ -29,8 +31,9 @@ namespace WPF_testovoe
 
         public AppViewModel()
         {
-            db = new ShopContext();
+            db           = new ShopContext();
             notification = new BaseNotification();
+            validator    = new BaseValidator();
 
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             LoadEmployeePageCommand   = new RelayCommand(LoadEmployeePage);
@@ -38,15 +41,15 @@ namespace WPF_testovoe
         }
         public void LoadEmployeePage()
         {
-            CurrentView = new EmployeesViewModel(db, notification);
+            CurrentView = new EmployeesViewModel(db, validator, notification);
         }
         public void LoadCategoriesPage()
         {
-            CurrentView = new CategoriesViewModel(db, notification);
+            CurrentView = new CategoriesViewModel(db, validator, notification);
         }
         public void LoadProductPage()
         {
-            CurrentView = new ProductsViewModel(db, notification);
+            CurrentView = new ProductsViewModel(db, validator, notification);
         }
     }
 }

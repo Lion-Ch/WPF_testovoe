@@ -6,6 +6,7 @@ using WPF_testovoe.Entity.Context;
 using WPF_testovoe.Entity.Model;
 using WPF_testovoe.Notifications;
 using WPF_testovoe.Utilty;
+using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
@@ -21,8 +22,8 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public EmployeesViewModel(ShopContext shopContext, INotification notification)
-            : base(shopContext)
+        public EmployeesViewModel(ShopContext shopContext, IValidator v, INotification notification)
+            : base(shopContext,v)
         {
             Notification = notification;
             NewRecord = new Employee();
@@ -34,8 +35,9 @@ namespace WPF_testovoe.ViewModels
         {
             if (SelectedRecord != null)
             {
-                db.Employees.Remove(SelectedRecord);
+                ListDeletedRecords.Add(SelectedRecord);
                 Records.Remove(SelectedRecord);
+
                 Notification.SetData(Properties.Resources.DeleteRecordSuccessfully, "Green");
             }
             else
@@ -49,19 +51,22 @@ namespace WPF_testovoe.ViewModels
                 return;
             }
 
+            ListNewRecords.Add(NewRecord);
             Records.Add(NewRecord);
-            db.Employees.Add(NewRecord);
             NewRecord = new Employee();
+
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         public override void LoadPage()
         {
             Records = new ObservableCollection<Employee>(db.Employees.ToList());
-            OnPropertyChanged("Categories");
         }
         public override void SaveAllRecords()
         {
+            db.Employees.AddRange(ListNewRecords);
+            db.Employees.RemoveRange(ListDeletedRecords);
             db.SaveChanges();
+
             Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
         }
         #endregion
