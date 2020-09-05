@@ -29,8 +29,9 @@ namespace WPF_testovoe.ViewModels
             get { return _selectedRecord; }
             set
             {
-                if(ListChangedRecords.IndexOf(value)==-1 || ListChangedRecords.Count == 0)
-                    ListChangedRecords.Add(value);
+                if( value !=null)
+                    if(ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
+                        ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
         }
@@ -81,23 +82,22 @@ namespace WPF_testovoe.ViewModels
         #region DataService
         public virtual void DeleteRecord()
         {
-            
         }
         public virtual void AddNewRecord()
         {
-            if (NewRecord == null)
-                return;
-
-            Records.Add(NewRecord);
-            NewRecord = default(TypeRecord);
+        }
+        public virtual void AddNewRecordPreProcess()
+        { 
         }
         public virtual void LoadRecords()
         {
-            OnPropertyChanged("Categories");
         }
         public virtual void SaveAllRecords()
         {
-            db.SaveChanges();
+        }
+        public virtual bool CanAddRecord()
+        {
+            return true;
         }
         #endregion
     }

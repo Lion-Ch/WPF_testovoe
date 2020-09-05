@@ -20,67 +20,59 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadSalePageCommand}">
-                    <Button.Content >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Style="{StaticResource MenuButton}" Command="{Binding LoadSalePageCommand}">
+                <Button.Content >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Image Width="30" Source="Resources/sales.png"/>
-                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Продажи"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Button Style="{StaticResource MenuButton}"  Command="{Binding LoadEmployeePageCommand}">
-                    <Button.Content >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <Image Width="30" Source="Resources/sales.png"/>
+                        <TextBlock Grid.Column="1"  Margin="20 0 10 0" VerticalAlignment="Center" Text="Продажи"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1" Style="{StaticResource MenuButton}"  Command="{Binding LoadEmployeePageCommand}">
+                <Button.Content >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Image Width="30" Source="/Resources/employees.png"/>
-                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Сотрудники"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="2">
-                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadProductPageCommand}">
-                    <Button.Content >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <Image Width="30" Source="/Resources/employees.png"/>
+                        <TextBlock Grid.Column="1" Margin="20 0 10 0" VerticalAlignment="Center" Text="Сотрудники"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="2" Style="{StaticResource MenuButton}" Command="{Binding LoadProductPageCommand}">
+                <Button.Content >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Image Width="30" Source="/Resources/product.png"/>
-                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Товары"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-            </Grid>
+                        <Image Width="30" Source="/Resources/product.png"/>
+                        <TextBlock Grid.Column="1" Margin="20 0 10 0" VerticalAlignment="Center" Text="Товары"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
 
-            <Grid Grid.Column="3">
-                <Button Style="{StaticResource MenuButton}" Command="{Binding LoadCategoriesPageCommand}">
-                    <Button.Content >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+            <Button Grid.Column="3" Style="{StaticResource MenuButton}" Command="{Binding LoadCategoriesPageCommand}">
+                <Button.Content >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Image Width="30" Source="/Resources/categories.png"/>
-                            <TextBlock Margin="20 0 10 0" VerticalAlignment="Center" Grid.Column="1" Text="Категории"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-            </Grid>
+                        <Image Width="30" Source="/Resources/categories.png"/>
+                        <TextBlock Grid.Column="1" Margin="20 0 10 0" VerticalAlignment="Center" Text="Категории"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
         </Grid>
 
         <!--Контент-->

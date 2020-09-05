@@ -138,9 +138,10 @@
                   Background="{StaticResource Gallery}"
                   Height="50"
                   VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding Notification.Text}" TextWrapping="Wrap"
-                           FontSize="14" Foreground="{Binding Notification.Color}" FontWeight="Bold"
-                           TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Notification.Text}" Foreground="{Binding Notification.Color}"
+                           TextAlignment="Center" VerticalAlignment="Center"
+                           FontSize="14"  FontWeight="Bold"
+                           TextWrapping="Wrap"/>
             </Grid>
         </Grid>
 

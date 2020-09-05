@@ -9,9 +9,11 @@ namespace WPF_testovoe.ViewModels
         public TypeRecord NewRecord { get; set; }
         public ObservableCollection<TypeRecord> Records { get; set; }
 
-        public virtual void DeleteRecord() { }
-        public virtual void AddNewRecord() { }
-        public virtual void LoadRecords() { }
-        public virtual void SaveAllRecords() { }
+        public abstract void DeleteRecord();
+        public abstract void AddNewRecord();
+        public abstract void AddNewRecordPreProcess();
+        public abstract void LoadRecords();
+        public abstract void SaveAllRecords();
+        public abstract bool CanAddRecord();
     }
 }

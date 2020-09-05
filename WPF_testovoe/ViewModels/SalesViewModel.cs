@@ -56,24 +56,21 @@ namespace WPF_testovoe.ViewModels
         }
         public override void AddNewRecord()
         {
-            if (db.Sales.Where(s=>s.EmployeeId == NewRecord.Employee.Id && s.ProductId == NewRecord.Product.Id).Count() == 0)
+            if (CanAddRecord())
             {
                 if (!Validator.IsValid(NewRecord))
                 {
                     Notification.SetData(Validator.ErrorText, "Red");
                     return;
                 }
-            }
-            else
-            {
-                Notification.SetData("Данная запись уже имеется в базе данных", "Red");
-                return;
-            }
-            ListNewRecords.Add(NewRecord);
-            Records.Add(NewRecord);
-            NewRecord = new Sale();
 
-            Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
+                AddNewRecordPreProcess();
+                ListNewRecords.Add(NewRecord);
+                Records.Add(NewRecord);
+                NewRecord = new Sale();
+
+                Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
+            }
         }
         public override void LoadRecords()
         {
@@ -100,6 +97,30 @@ namespace WPF_testovoe.ViewModels
 
             ListNewRecords.Clear();
             ListDeletedRecords.Clear();
+        }
+        public override bool CanAddRecord()
+        {
+            if (db.Sales.Where(s => s.EmployeeId == NewRecord.Employee.Id && s.ProductId == NewRecord.Product.Id).Count() == 0)
+            {
+                if (NewRecord.Product.Amount >= NewRecord.Amount + NewRecord.Product.Sales.Sum(s=>s.Amount))
+                {
+                    return true;
+                }
+                else
+                {
+                    Notification.SetData(Properties.Resources.NotHaveProduct, "Red");
+                    return false;
+                }
+            }
+            else
+            {
+                Notification.SetData(Properties.Resources.HaveRecordInBase, "Red");
+                return false;
+            }
+        }
+        public override void AddNewRecordPreProcess()
+        {
+            NewRecord.Product.Amount -= NewRecord.Amount;
         }
         #endregion
     }

@@ -126,6 +126,24 @@ namespace WPF_testovoe.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Данная запись уже имеется в базе данных.
+        /// </summary>
+        internal static string HaveRecordInBase {
+            get {
+                return ResourceManager.GetString("HaveRecordInBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не имеется такого количества продукта на складе.
+        /// </summary>
+        internal static string NotHaveProduct {
+            get {
+                return ResourceManager.GetString("NotHaveProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         internal static byte[] product {
