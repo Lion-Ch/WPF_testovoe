@@ -10,24 +10,21 @@ using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel: BaseDataPageViewModel<Category>,  INotificationPageService, IViewModel
+    public class CategoriesViewModel: BaseDataPageViewModel<Category>,  INotificationPageService, IDataValidateService, IViewModel
     {
 
         #region Свойства
-        private INotification _notification;
-        public  INotification Notification
-        {
-            get { return _notification; }
-            set { OnPropertyChanged(ref _notification, value); }
-        }
+        public IValidator    Validator { get; set; }
+        public INotification Notification { get; set; }
         #endregion
 
         #region Конструктор
-        public CategoriesViewModel(ShopContext shopContext, IValidator v, INotification notification)
-            : base(shopContext, v)
+        public CategoriesViewModel(ShopContext shopContext, IValidator validator, INotification notification)
+            : base(shopContext)
         {
+            Validator    = validator;
             Notification = notification;
-            NewRecord = new Category();
+            NewRecord    = new Category();
         }
         #endregion
 
@@ -46,9 +43,9 @@ namespace WPF_testovoe.ViewModels
         }
         public override void AddNewRecord()
         {
-            if (String.IsNullOrEmpty(NewRecord.Name))
+            if (Validator.IsValid(NewRecord))
             {
-                Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
+                Notification.SetData(Validator.ErrorText, "Red");
                 return;
             }
 
@@ -58,7 +55,7 @@ namespace WPF_testovoe.ViewModels
 
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadPage()
+        public override void LoadRecords()
         {
             Records = new ObservableCollection<Category>(db.Categories.ToList());
         }
@@ -66,9 +63,20 @@ namespace WPF_testovoe.ViewModels
         {
             db.Categories.AddRange(ListNewRecords);
             db.Categories.RemoveRange(ListDeletedRecords);
-            db.SaveChanges();
 
-            Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            if (Validator.IsValid(ListChangedRecords))
+            {
+                db.SaveChanges();
+                ListChangedRecords.Clear();
+                Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            }
+            else
+            {
+                Notification.SetData(Validator.ErrorText, "Red");
+            }
+
+            ListNewRecords.Clear();
+            ListDeletedRecords.Clear();
         }
         #endregion
     }

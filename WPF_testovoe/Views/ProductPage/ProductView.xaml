@@ -136,7 +136,7 @@
                   Background="{StaticResource Gallery}"
                   Height="50"
                   VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding Notification.Text}"
+                <TextBlock Text="{Binding Notification.Text}" TextWrapping="Wrap"
                            FontSize="14" Foreground="{Binding Notification.Color}" FontWeight="Bold"
                            TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>

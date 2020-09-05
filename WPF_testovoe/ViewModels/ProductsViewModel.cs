@@ -11,27 +11,26 @@ using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class ProductsViewModel : BaseDataPageViewModel<Product>, INotificationPageService, IViewModel
+    public class ProductsViewModel : BaseDataPageViewModel<Product>, INotificationPageService, IDataValidateService, IViewModel
     {
-        public List<Category> Categories { get; set; }
+
         #region Свойства
+        public IValidator    Validator { get; set; }
+        public INotification Notification { get; set; }
+
+        public List<Category> Categories { get; set; }
         public Category SelectedCategory
         {
             get { return NewRecord.Category; }
             set { NewRecord.Category = value;  }
         }
-        private INotification _notification;
-        public INotification Notification
-        {
-            get { return _notification; }
-            set { OnPropertyChanged(ref _notification, value); }
-        }
         #endregion
 
         #region Конструктор
-        public ProductsViewModel(ShopContext shopContext,IValidator v, INotification notification)
-            : base(shopContext,v)
+        public ProductsViewModel(ShopContext shopContext,IValidator validator, INotification notification)
+            : base(shopContext)
         {
+            Validator = validator;
             Notification = notification;
             NewRecord = new Product();
         }
@@ -63,7 +62,7 @@ namespace WPF_testovoe.ViewModels
 
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadPage()
+        public override void LoadRecords()
         {
             Categories = db.Categories.ToList();
             Records = new ObservableCollection<Product>(db.Products.Include(p=>p.Category).ToList());
@@ -72,9 +71,20 @@ namespace WPF_testovoe.ViewModels
         {
             db.Products.AddRange(ListNewRecords);
             db.Products.RemoveRange(ListDeletedRecords);
-            db.SaveChanges();
 
-            Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            if (Validator.IsValid(ListChangedRecords))
+            {
+                db.SaveChanges();
+                ListChangedRecords.Clear();
+                Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            }
+            else
+            {
+                Notification.SetData(Validator.ErrorText, "Red");
+            }
+
+            ListNewRecords.Clear();
+            ListDeletedRecords.Clear();
         }
         #endregion
     }

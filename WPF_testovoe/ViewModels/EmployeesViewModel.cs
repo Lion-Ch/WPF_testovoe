@@ -10,21 +10,18 @@ using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class EmployeesViewModel : BaseDataPageViewModel<Employee>, INotificationPageService, IViewModel
+    public class EmployeesViewModel : BaseDataPageViewModel<Employee>, INotificationPageService, IDataValidateService, IViewModel
     {
         #region Свойства
-        private INotification _notification;
-        public INotification Notification
-        {
-            get { return _notification; }
-            set { OnPropertyChanged(ref _notification, value); }
-        }
+        public IValidator    Validator { get; set; }
+        public INotification Notification { get; set; }
         #endregion
 
         #region Конструктор
-        public EmployeesViewModel(ShopContext shopContext, IValidator v, INotification notification)
-            : base(shopContext,v)
+        public EmployeesViewModel(ShopContext shopContext, IValidator validator, INotification notification)
+            : base(shopContext)
         {
+            Validator = validator;
             Notification = notification;
             NewRecord = new Employee();
         }
@@ -57,7 +54,7 @@ namespace WPF_testovoe.ViewModels
 
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadPage()
+        public override void LoadRecords()
         {
             Records = new ObservableCollection<Employee>(db.Employees.ToList());
         }
@@ -65,9 +62,20 @@ namespace WPF_testovoe.ViewModels
         {
             db.Employees.AddRange(ListNewRecords);
             db.Employees.RemoveRange(ListDeletedRecords);
-            db.SaveChanges();
 
-            Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            if (Validator.IsValid(ListChangedRecords))
+            {
+                db.SaveChanges();
+                ListChangedRecords.Clear();
+                Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
+            }
+            else
+            {
+                Notification.SetData(Validator.ErrorText, "Red");
+            }
+
+            ListNewRecords.Clear();
+            ListDeletedRecords.Clear();
         }
         #endregion
     }

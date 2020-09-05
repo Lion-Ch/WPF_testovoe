@@ -16,9 +16,9 @@ namespace WPF_testovoe.ViewModels
     {
         #region Поля
         protected ShopContext db;
-        protected IValidator validator;
         protected List<TypeRecord> ListNewRecords     { get; set; }
         protected List<TypeRecord> ListDeletedRecords { get; set; }
+        protected List<TypeRecord> ListChangedRecords { get; set; }
         #endregion
 
         #region Свойства
@@ -29,6 +29,8 @@ namespace WPF_testovoe.ViewModels
             get { return _selectedRecord; }
             set
             {
+                if(ListChangedRecords.IndexOf(value)==-1)
+                    ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
         }
@@ -60,19 +62,19 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(ShopContext shopContext, IValidator v)
+        public BaseDataPageViewModel(ShopContext shopContext)
         {
             ListNewRecords     = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
+            ListChangedRecords = new List<TypeRecord>();
 
-            validator = v;
-            db        = shopContext;
+            db = shopContext;
 
             AddNewRecordCommand   = new RelayCommand(AddNewRecord);
             DeleteRecordCommand   = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
 
-            LoadPage();
+            LoadRecords();
         }
         #endregion
 
@@ -89,7 +91,7 @@ namespace WPF_testovoe.ViewModels
             Records.Add(NewRecord);
             NewRecord = default(TypeRecord);
         }
-        public virtual void LoadPage()
+        public virtual void LoadRecords()
         {
             OnPropertyChanged("Categories");
         }

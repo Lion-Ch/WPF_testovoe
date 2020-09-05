@@ -127,6 +127,9 @@
   <data name="AllRecordsSavedSuccessfully" xml:space="preserve">
     <value>Все записи сохранены</value>
   </data>
+  <data name="AmountValidateError" xml:space="preserve">
+    <value>Количество не может быть меньше 0</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="categories" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\categories.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -146,6 +149,9 @@
   </data>
   <data name="sales" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sales.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StringValidateError" xml:space="preserve">
+    <value>Текстовое поле не заполнено</value>
   </data>
   <data name="submit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\submit.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

@@ -88,6 +88,15 @@ namespace WPF_testovoe.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Количество не может быть меньше 0.
+        /// </summary>
+        internal static string AmountValidateError {
+            get {
+                return ResourceManager.GetString("AmountValidateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         internal static byte[] categories {
@@ -142,6 +151,15 @@ namespace WPF_testovoe.Properties {
             get {
                 object obj = ResourceManager.GetObject("sales", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Текстовое поле не заполнено.
+        /// </summary>
+        internal static string StringValidateError {
+            get {
+                return ResourceManager.GetString("StringValidateError", resourceCulture);
             }
         }
         

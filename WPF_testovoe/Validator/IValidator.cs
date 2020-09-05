@@ -7,9 +7,17 @@ namespace WPF_testovoe.Validator
 {
     public interface IValidator
     {
+        public string ErrorText { get; }
+
+
         public bool IsValid(Category category);
-        public bool IsValid(Product product);
+        public bool IsValid(Product  product);
         public bool IsValid(Employee employee);
-        public bool IsValid(Sale sale);
+        public bool IsValid(Sale     sale);
+
+        public bool IsValid(IEnumerable<Category> categories);
+        public bool IsValid(IEnumerable<Product>  products);
+        public bool IsValid(IEnumerable<Employee> employees);
+        public bool IsValid(IEnumerable<Sale>     sales);
     }
 }
