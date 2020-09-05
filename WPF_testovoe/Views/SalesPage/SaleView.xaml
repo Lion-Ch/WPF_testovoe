@@ -63,7 +63,7 @@
                              Background="{StaticResource Gallery}"
                              Height="30" Margin="5 0" FontSize="16"
                              IsReadOnly="True"/>
-                    <TextBox Grid.Column="2" Text="{Binding SelectedRecord.Amount, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                    <TextBox Grid.Column="2" Text="{Binding SelectedRecord.Amount, TargetNullValue=''}"
                              Foreground="{StaticResource Blue Yonder}"  
                              Background="{StaticResource Gallery}"
                              Height="30" Margin="5 0" FontSize="16"/>

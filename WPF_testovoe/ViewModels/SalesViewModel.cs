@@ -64,7 +64,7 @@ namespace WPF_testovoe.ViewModels
                     return;
                 }
 
-                AddNewRecordPreProcess();
+                //AddNewRecordPreProcess();
                 ListNewRecords.Add(NewRecord);
                 Records.Add(NewRecord);
                 NewRecord = new Sale();
@@ -102,15 +102,16 @@ namespace WPF_testovoe.ViewModels
         {
             if (db.Sales.Where(s => s.EmployeeId == NewRecord.Employee.Id && s.ProductId == NewRecord.Product.Id).Count() == 0)
             {
-                if (NewRecord.Product.Amount >= NewRecord.Amount + NewRecord.Product.Sales.Sum(s=>s.Amount))
-                {
-                    return true;
-                }
-                else
-                {
-                    Notification.SetData(Properties.Resources.NotHaveProduct, "Red");
-                    return false;
-                }
+                return true;
+                //if (NewRecord.Product.Amount >= NewRecord.Amount + NewRecord.Product.Sales.Sum(s=>s.Amount))
+                //{
+                //    return true;
+                //}
+                //else
+                //{
+                //    Notification.SetData(Properties.Resources.NotHaveProduct, "Red");
+                //    return false;
+                //}
             }
             else
             {
@@ -118,10 +119,10 @@ namespace WPF_testovoe.ViewModels
                 return false;
             }
         }
-        public override void AddNewRecordPreProcess()
-        {
-            NewRecord.Product.Amount -= NewRecord.Amount;
-        }
+        //public override void AddNewRecordPreProcess()
+        //{
+        //    NewRecord.Product.Amount -= NewRecord.Amount;
+        //}
         #endregion
     }
 }

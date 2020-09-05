@@ -11,7 +11,39 @@ namespace WPF_testovoe.Entity.Model
         public int Amount
         {
             get { return _amount; }
-            set { OnPropertyChanged(ref _amount, value); }
+            set
+            {
+                if (value > _amount)
+                {
+                    if (value - _amount <= Product.Amount)
+                    {
+                        Product.Amount -= value - _amount;
+                        OnPropertyChanged(ref _amount, value);
+                        return;
+                    }
+                    else
+                    {
+                        OnPropertyChanged(ref _amount, Product.Amount);
+                        Product.Amount = 0;
+                        return;
+                    }
+                }
+                else if(value < _amount)
+                {
+                    if (value >= 0 )
+                    {
+                        Product.Amount += _amount - value;
+                        OnPropertyChanged(ref _amount, value);
+                        return;
+                    }
+                    else
+                    {
+                        Product.Amount += _amount;
+                        OnPropertyChanged(ref _amount, 0);
+                        return;
+                    }
+                }
+            }
         }
 
         private int _productId;
