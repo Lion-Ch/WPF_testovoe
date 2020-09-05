@@ -67,7 +67,8 @@ namespace WPF_testovoe.ViewModels
             if (Validator.IsValid(ListChangedRecords))
             {
                 db.SaveChanges();
-                ListChangedRecords.Clear();
+                if (ListChangedRecords.Count > 1)
+                    ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
                 Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
             }
             else

@@ -29,7 +29,7 @@ namespace WPF_testovoe.ViewModels
             get { return _selectedRecord; }
             set
             {
-                if(ListChangedRecords.IndexOf(value)==-1)
+                if(ListChangedRecords.IndexOf(value)==-1 || ListChangedRecords.Count == 0)
                     ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }

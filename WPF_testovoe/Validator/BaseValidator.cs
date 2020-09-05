@@ -11,6 +11,12 @@ namespace WPF_testovoe.Validator
 
         public bool IsValid(Category category)
         {
+            if (category == null)
+            {
+                ErrorText = "Не указано поле 'Категория'";
+                return false;
+            }
+
             if (String.IsNullOrEmpty(category.Name))
             {
                 ErrorText = Properties.Resources.StringValidateError + $" Категория ID:{category.Id}";
@@ -22,15 +28,21 @@ namespace WPF_testovoe.Validator
 
         public bool IsValid(Product product)
         {
+            if (product == null)
+            {
+                ErrorText = "Не указано поле 'Продукт'";
+                return false;
+            }
+
             if (IsValid(product.Category))
             {
-                if (product.Amount <= 0 || String.IsNullOrEmpty(product.Name))
+                if (product.Amount < 0 || String.IsNullOrEmpty(product.Name))
                 {
                     ErrorText = Properties.Resources.AmountValidateError + ", " + Properties.Resources.StringValidateError + $" Продукт ID:{product.Id}";
                     return false;
                 }
 
-                return false;
+                return true;
             }
             else
                 return false;
@@ -38,6 +50,12 @@ namespace WPF_testovoe.Validator
 
         public bool IsValid(Employee employee)
         {
+            if (employee == null)
+            {
+                ErrorText = "Не указано поле 'Сотрудник'";
+                return false;
+            }
+
             if (String.IsNullOrEmpty(employee.FullName))
             {
                 ErrorText = Properties.Resources.StringValidateError + $" Сотрудник ID:{employee.Id}";

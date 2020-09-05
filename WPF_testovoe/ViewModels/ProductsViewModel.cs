@@ -51,9 +51,9 @@ namespace WPF_testovoe.ViewModels
         }
         public override void AddNewRecord()
         {
-            if (String.IsNullOrEmpty(NewRecord.Name))
+            if (!Validator.IsValid(NewRecord))
             {
-                Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
+                Notification.SetData(Validator.ErrorText, "Red");
                 return;
             }
             ListNewRecords.Add(NewRecord);
@@ -75,7 +75,8 @@ namespace WPF_testovoe.ViewModels
             if (Validator.IsValid(ListChangedRecords))
             {
                 db.SaveChanges();
-                ListChangedRecords.Clear();
+                if (ListChangedRecords.Count > 1)
+                    ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
                 Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
             }
             else
