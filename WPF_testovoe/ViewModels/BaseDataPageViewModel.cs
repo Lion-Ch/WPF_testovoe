@@ -13,9 +13,11 @@ namespace WPF_testovoe.ViewModels
 {
     public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>, IViewModel
     {
+        #region Поля
         protected ShopContext db;
-        //protected List<TypeRecord> ListNewRecords;
-        //protected List<TypeRecord> ListDeletedRecords;
+        protected List<TypeRecord> ListNewRecords     { get; set; }
+        protected List<TypeRecord> ListDeletedRecords { get; set; }
+        #endregion
 
         #region Свойства
 
@@ -58,11 +60,13 @@ namespace WPF_testovoe.ViewModels
         #region Конструктор
         public BaseDataPageViewModel(ShopContext shopContext)
         {
+            ListNewRecords     = new List<TypeRecord>();
+            ListDeletedRecords = new List<TypeRecord>();
             db = shopContext;
             LoadPage();
 
-            AddNewRecordCommand = new RelayCommand(AddNewRecord);
-            DeleteRecordCommand = new RelayCommand(DeleteRecord);
+            AddNewRecordCommand   = new RelayCommand(AddNewRecord);
+            DeleteRecordCommand   = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
         }
         #endregion

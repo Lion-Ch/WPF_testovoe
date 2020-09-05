@@ -41,7 +41,7 @@ namespace WPF_testovoe.ViewModels
         {
             if (SelectedRecord != null)
             {
-                db.Products.Remove(SelectedRecord);
+                ListDeletedRecords.Add(SelectedRecord);
                 Records.Remove(SelectedRecord);
                 Notification.SetData(Properties.Resources.DeleteRecordSuccessfully, "Green");
             }
@@ -55,8 +55,8 @@ namespace WPF_testovoe.ViewModels
                 Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
                 return;
             }
+            ListNewRecords.Add(NewRecord);
             Records.Add(NewRecord);
-            db.Products.Add(NewRecord);
             NewRecord = new Product();
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
@@ -68,6 +68,8 @@ namespace WPF_testovoe.ViewModels
         }
         public override void SaveAllRecords()
         {
+            db.Products.AddRange(ListNewRecords);
+            db.Products.RemoveRange(ListDeletedRecords);
             db.SaveChanges();
             Notification.SetData(Properties.Resources.AllRecordsSavedSuccessfully, "Green");
         }
