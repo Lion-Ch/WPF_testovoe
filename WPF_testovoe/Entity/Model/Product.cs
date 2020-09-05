@@ -30,13 +30,17 @@ namespace WPF_testovoe.Entity.Model
             get { return _categoryId; }
             set { OnPropertyChanged(ref _categoryId, value); }
         }
-        public Category Category { get; set; }
+        private Category _category;
+        public Category Category
+        {
+            get { return _category; }
+            set { OnPropertyChanged(ref _category, value); }
+        }
 
         public IEnumerable<Sale> Sales { get; set; }
 
         public Product()
         {
-            Category = new Category();
             Sales = new List<Sale>();
         }
     }
