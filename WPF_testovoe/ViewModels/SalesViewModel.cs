@@ -32,7 +32,7 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public SalesViewModel(ShopContext shopContext, IValidator validator, INotification notification)
+        public SalesViewModel(IContext shopContext, IValidator validator, INotification notification)
             : base(shopContext)
         {
             Validator = validator;

@@ -24,7 +24,7 @@ namespace WPF_testovoe
         public MainWindow()
         {
             InitializeComponent();
-            ShopContext shopContext = new ShopContext();
+            MSSQLContext shopContext = new MSSQLContext();
         }
     }
 }

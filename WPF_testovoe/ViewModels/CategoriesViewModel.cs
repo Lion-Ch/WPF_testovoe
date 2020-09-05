@@ -19,7 +19,7 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public CategoriesViewModel(ShopContext shopContext, IValidator validator, INotification notification)
+        public CategoriesViewModel(IContext shopContext, IValidator validator, INotification notification)
             : base(shopContext)
         {
             Validator    = validator;

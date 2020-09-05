@@ -1,18 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using WPF_testovoe.Entity.Model;
+using System.Text;
 using WPF_testovoe.Entity.Configuration;
+using WPF_testovoe.Entity.Model;
 
 namespace WPF_testovoe.Entity.Context
 {
-    public class ShopContext : DbContext
+    public class PostgreContext: DbContext, IContext
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Product>  Products { get; set; }
-        public DbSet<Sale>     Sales { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Sale> Sales { get; set; }
 
-        public ShopContext()
+        public PostgreContext()
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

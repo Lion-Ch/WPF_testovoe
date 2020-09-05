@@ -16,10 +16,9 @@ namespace WPF_testovoe
     public class AppViewModel : ObservableObject
     {
         #region Поля
-        private ShopContext   db;
+        private IContext   db;
         private INotification notification;
         private IValidator    validator;
-        private IViewModel[]  appPages;
         #endregion
 
         #region Текущая View
@@ -41,7 +40,7 @@ namespace WPF_testovoe
         #region Конструктор
         public AppViewModel()
         {
-            db           = new ShopContext();
+            db           = new MSSQLContext();
             notification = new BaseNotification();
             validator    = new BaseValidator();
 

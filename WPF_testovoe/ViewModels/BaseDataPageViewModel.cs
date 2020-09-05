@@ -15,7 +15,7 @@ namespace WPF_testovoe.ViewModels
     public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>, IViewModel
     {
         #region Поля
-        protected ShopContext db;
+        protected IContext db;
         protected List<TypeRecord> ListNewRecords     { get; set; }
         protected List<TypeRecord> ListDeletedRecords { get; set; }
         protected List<TypeRecord> ListChangedRecords { get; set; }
@@ -63,7 +63,7 @@ namespace WPF_testovoe.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(ShopContext shopContext)
+        public BaseDataPageViewModel(IContext shopContext)
         {
             ListNewRecords     = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
