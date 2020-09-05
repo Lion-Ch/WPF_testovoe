@@ -54,7 +54,7 @@ namespace WPF_testovoe.ViewModels
             NewRecord = new Employee();
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadRecords()
+        public override void LoadPage()
         {
             Records = new ObservableCollection<Employee>(db.Employees.ToList());
             OnPropertyChanged("Categories");

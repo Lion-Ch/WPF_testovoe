@@ -12,7 +12,13 @@ namespace WPF_testovoe.ViewModels
 {
     public class ProductsViewModel : BaseDataPageViewModel<Product>, INotificationPageService, IViewModel
     {
+        public List<Category> Categories { get; set; }
         #region Свойства
+        public Category SelectedCategory
+        {
+            get { return NewRecord.Category; }
+            set { NewRecord.Category = value;  }
+        }
         private INotification _notification;
         public INotification Notification
         {
@@ -49,14 +55,14 @@ namespace WPF_testovoe.ViewModels
                 Notification.SetData(Properties.Resources.AddNewRecordError, "Red");
                 return;
             }
-
             Records.Add(NewRecord);
             db.Products.Add(NewRecord);
             NewRecord = new Product();
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadRecords()
+        public override void LoadPage()
         {
+            Categories = db.Categories.ToList();
             Records = new ObservableCollection<Product>(db.Products.Include(p=>p.Category).ToList());
             OnPropertyChanged("Categories");
         }

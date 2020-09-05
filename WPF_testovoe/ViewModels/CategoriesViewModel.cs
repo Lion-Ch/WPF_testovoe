@@ -55,7 +55,7 @@ namespace WPF_testovoe.ViewModels
             NewRecord = new Category();
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
-        public override void LoadRecords()
+        public override void LoadPage()
         {
             Records = new ObservableCollection<Category>(db.Categories.ToList());
             OnPropertyChanged("Categories");

@@ -10,7 +10,7 @@ namespace WPF_testovoe.ViewModels
 
         public virtual void DeleteRecord() { }
         public virtual void AddNewRecord() { }
-        public virtual void LoadRecords() { }
+        public virtual void LoadPage() { }
         public virtual void SaveAllRecords() { }
     }
 }

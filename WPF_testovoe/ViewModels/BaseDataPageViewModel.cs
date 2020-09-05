@@ -14,6 +14,8 @@ namespace WPF_testovoe.ViewModels
     public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>, IViewModel
     {
         protected ShopContext db;
+        //protected List<TypeRecord> ListNewRecords;
+        //protected List<TypeRecord> ListDeletedRecords;
 
         #region Свойства
 
@@ -57,7 +59,7 @@ namespace WPF_testovoe.ViewModels
         public BaseDataPageViewModel(ShopContext shopContext)
         {
             db = shopContext;
-            LoadRecords();
+            LoadPage();
 
             AddNewRecordCommand = new RelayCommand(AddNewRecord);
             DeleteRecordCommand = new RelayCommand(DeleteRecord);
@@ -78,7 +80,7 @@ namespace WPF_testovoe.ViewModels
             Records.Add(NewRecord);
             NewRecord = default(TypeRecord);
         }
-        public virtual void LoadRecords()
+        public virtual void LoadPage()
         {
             OnPropertyChanged("Categories");
         }
