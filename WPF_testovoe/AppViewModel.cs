@@ -16,7 +16,7 @@ namespace WPF_testovoe
     public class AppViewModel : ObservableObject
     {
         #region Поля
-        private IContext   db;
+        private IContext      db;
         private INotification notification;
         private IValidator    validator;
         #endregion
