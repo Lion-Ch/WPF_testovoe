@@ -33,7 +33,7 @@
                            Foreground="{StaticResource Blue Yonder}" 
                            FontSize="20" Padding="20 0"
                            VerticalAlignment="Center" TextAlignment="Left"/>
-                    <TextBlock Grid.Column="2" Text="{Binding Product.Name}" 
+                    <TextBlock Grid.Column="2" Text="{Binding Category.Name}" 
                            Foreground="{StaticResource Blue Yonder}" 
                            FontSize="20" Padding="20 0"
                            VerticalAlignment="Center" TextAlignment="Left"/>

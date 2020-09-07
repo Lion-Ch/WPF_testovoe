@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_testovoe.Views.ProductPage
+namespace WPF_testovoe.Views.CategoryPage
 {
     /// <summary>
-    /// Логика взаимодействия для ProductView.xaml
+    /// Логика взаимодействия для UserControl1.xaml
     /// </summary>
-    public partial class ProductView : UserControl
+    public partial class CategoryView : UserControl
     {
-        public ProductView()
+        public CategoryView()
         {
             InitializeComponent();
         }

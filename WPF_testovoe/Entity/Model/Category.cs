@@ -7,7 +7,7 @@ using WPF_testovoe.Utilty;
 
 namespace WPF_testovoe.Entity.Model
 {
-    public class Product: ObservableObject
+    public class Category: ObservableObject
     {
         #region Столбцы
         public int Id { get; set; }
@@ -24,7 +24,7 @@ namespace WPF_testovoe.Entity.Model
         public List<Product> Products { get; set; }
         #endregion
 
-        public Product()
+        public Category()
         {
             Products = new List<Product>();
         }

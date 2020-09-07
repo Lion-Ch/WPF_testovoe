@@ -5,13 +5,13 @@
              xmlns:vm="clr-namespace:WPF_testovoe.ViewModels"
              xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
              xmlns:vEmployee="clr-namespace:WPF_testovoe.Views.EmpoyeePage"
-             xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
+             xmlns:vCategory="clr-namespace:WPF_testovoe.Views.CategoryPage"
              xmlns:vSales="clr-namespace:WPF_testovoe.Views.SalesPage"
              xmlns:m="clr-namespace:WPF_testovoe.Entity.Model"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type vm:CategoriesViewModel}">
-            <vProduct:ProductView/>
+            <vCategory:CategoryView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
             <vEmployee:EmployeeView/>

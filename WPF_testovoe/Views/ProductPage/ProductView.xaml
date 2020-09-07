@@ -61,7 +61,7 @@
                      Foreground="{StaticResource Blue Yonder}"  
                      Background="{StaticResource Gallery}"
                      Height="30" Margin="5 0" FontSize="16"/>
-                    <ComboBox Grid.Column="2" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedRecord.Product}"
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedRecord.Category}"
                               Foreground="{StaticResource Blue Yonder}" 
                               Background="{StaticResource Gallery}"
                               Height="30" Margin="5 0" FontSize="16">

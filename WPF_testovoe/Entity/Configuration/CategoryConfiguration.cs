@@ -7,9 +7,9 @@ using WPF_testovoe.Entity.Model;
 
 namespace WPF_testovoe.Entity.Configuration
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.Property(n => n.Name).IsRequired();
         }
