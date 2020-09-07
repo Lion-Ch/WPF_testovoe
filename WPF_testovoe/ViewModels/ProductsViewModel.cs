@@ -18,11 +18,11 @@ namespace WPF_testovoe.ViewModels
         public IValidator    Validator { get; set; }
         public INotification Notification { get; set; }
 
-        public List<Category> Categories { get; set; }
-        public Category SelectedCategory
+        public List<Product> Categories { get; set; }
+        public Product SelectedProduct
         {
-            get { return NewRecord.Category; }
-            set { NewRecord.Category = value;  }
+            get { return NewRecord.Product; }
+            set { NewRecord.Product = value;  }
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace WPF_testovoe.ViewModels
         public override void LoadRecords()
         {
             Categories = db.Categories.ToList();
-            Records = new ObservableCollection<Product>(db.Products.Include(p=>p.Category).ToList());
+            Records = new ObservableCollection<Product>(db.Products.Include(p=>p.Product).ToList());
         }
         public override void SaveAllRecords()
         {

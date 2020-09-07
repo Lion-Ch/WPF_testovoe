@@ -9,17 +9,17 @@ namespace WPF_testovoe.Validator
     {
         public string ErrorText { get; private set; }
 
-        public bool IsValid(Category category)
+        public bool IsValid(Product Product)
         {
-            if (category == null)
+            if (Product == null)
             {
                 ErrorText = "Не указано поле 'Категория'";
                 return false;
             }
 
-            if (String.IsNullOrEmpty(category.Name))
+            if (String.IsNullOrEmpty(Product.Name))
             {
-                ErrorText = Properties.Resources.StringValidateError + $" Категория ID:{category.Id}";
+                ErrorText = Properties.Resources.StringValidateError + $" Категория ID:{Product.Id}";
                 return false;
             }
 
@@ -34,7 +34,7 @@ namespace WPF_testovoe.Validator
                 return false;
             }
 
-            if (IsValid(product.Category))
+            if (IsValid(product.Product))
             {
                 if (product.Amount < 0 || String.IsNullOrEmpty(product.Name))
                 {
@@ -84,9 +84,9 @@ namespace WPF_testovoe.Validator
         //Создать единое обобщение для ниже приведенных методов
         //не позволяет c#
 
-        public bool IsValid(IEnumerable<Category> categories)
+        public bool IsValid(IEnumerable<Product> categories)
         {
-            foreach(Category c in categories)
+            foreach(Product c in categories)
             {
                 if (!IsValid(c))
                     return false;

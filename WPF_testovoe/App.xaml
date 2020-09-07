@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WPF_testovoe"
              xmlns:vm="clr-namespace:WPF_testovoe.ViewModels"
-             xmlns:vCategory="clr-namespace:WPF_testovoe.Views.CategoryPage"
+             xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
              xmlns:vEmployee="clr-namespace:WPF_testovoe.Views.EmpoyeePage"
              xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
              xmlns:vSales="clr-namespace:WPF_testovoe.Views.SalesPage"
@@ -11,7 +11,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type vm:CategoriesViewModel}">
-            <vCategory:CategoryView/>
+            <vProduct:ProductView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
             <vEmployee:EmployeeView/>

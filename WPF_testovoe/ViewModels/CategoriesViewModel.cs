@@ -10,7 +10,7 @@ using WPF_testovoe.Validator;
 
 namespace WPF_testovoe.ViewModels
 {
-    public class CategoriesViewModel: BaseDataPageViewModel<Category>,  INotificationPageService, IDataValidateService, IViewModel
+    public class CategoriesViewModel: BaseDataPageViewModel<Product>,  INotificationPageService, IDataValidateService, IViewModel
     {
 
         #region Свойства
@@ -24,7 +24,7 @@ namespace WPF_testovoe.ViewModels
         {
             Validator    = validator;
             Notification = notification;
-            NewRecord    = new Category();
+            NewRecord    = new Product();
         }
         #endregion
 
@@ -51,13 +51,13 @@ namespace WPF_testovoe.ViewModels
 
             ListNewRecords.Add(NewRecord);
             Records.Add(NewRecord);
-            NewRecord = new Category();
+            NewRecord = new Product();
 
             Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         public override void LoadRecords()
         {
-            Records = new ObservableCollection<Category>(db.Categories.ToList());
+            Records = new ObservableCollection<Product>(db.Categories.ToList());
         }
         public override void SaveAllRecords()
         {

@@ -23,17 +23,17 @@ namespace WPF_testovoe.Entity.Model
             set { OnPropertyChanged(ref _amount, value); } 
         }
 
-        private int _categoryId;
-        public int CategoryId
+        private int _ProductId;
+        public int ProductId
         {
-            get { return _categoryId; }
-            set { OnPropertyChanged(ref _categoryId, value); }
+            get { return _ProductId; }
+            set { OnPropertyChanged(ref _ProductId, value); }
         }
-        private Category _category;
-        public Category Category
+        private Product _Product;
+        public Product Product
         {
-            get { return _category; }
-            set { OnPropertyChanged(ref _category, value); }
+            get { return _Product; }
+            set { OnPropertyChanged(ref _Product, value); }
         }
 
         public IEnumerable<Sale> Sales { get; set; }

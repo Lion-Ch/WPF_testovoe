@@ -8,7 +8,7 @@ namespace WPF_testovoe.Entity.Context
 {
     public interface IContext
     {
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Categories { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Sale> Sales { get; set; }
