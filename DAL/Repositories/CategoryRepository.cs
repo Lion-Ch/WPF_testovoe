@@ -35,12 +35,12 @@ namespace DAL.Repositories
 
         public void Update(Category category)
         {
-            db.Categories.Attach(category);
+            var original = db.Categories.Find(category.Id);
 
-            var entry = db.Entry(category);
-            entry.State = EntityState.Modified;
-
-            db.SaveChanges();
+            if (original != null)
+            {
+                db.Entry(original).CurrentValues.SetValues(category);
+            }
         }
 
         public IEnumerable<Category> Find(Func<Category, Boolean> predicate)

@@ -9,14 +9,10 @@ using System.Text;
 
 namespace BLL.Services
 {
-    public class CategoryService : IDataService<CategoryDTO>
+    public class CategoryService : BaseService, IDataService<CategoryDTO>
     {
-
-        IUnitOfWork Database { get; set; }
-
-        public CategoryService(IUnitOfWork uow)
+        public CategoryService(IUnitOfWork uow):base(uow)
         {
-            Database = uow;
         }
 
         public void Create(CategoryDTO categoryDTO)
@@ -26,29 +22,27 @@ namespace BLL.Services
                 Name = categoryDTO.Name
             };
             Database.Categories.Create(category);
-            Database.Save();
+        }
+
+        public void Update(CategoryDTO categoryDTO)
+        {
+            Database.Categories.Update(new Category
+            {
+                Id = categoryDTO.Id,
+                Name = categoryDTO.Name
+            }
+            );
         }
 
         public void Delete(int id)
         {
             Database.Categories.Delete(id);
-            Database.Save();
         }
 
         public IEnumerable<CategoryDTO> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Category, CategoryDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(Database.Categories.GetAll());
-        }
-
-        public void Update(CategoryDTO categoryDTO)
-        {
-            Database.Categories.Update(new Category { Name = categoryDTO.Name });
-        }
-
-        public void Dispose()
-        {
-            Database.Dispose();
         }
     }
 }

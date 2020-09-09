@@ -17,7 +17,11 @@ namespace ConsoleApp2
             foreach(CategoryDTO c in list)
             {
                 Console.WriteLine($"{c.Id} {c.Name}");
+                c.Name += " Изменено";
+                categoryService.Update(c);
             }
+
+            uow.Save();
         }
     }
 }
