@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF_testovoe", "WPF_testovoe\WPF_testovoe.csproj", "{12317DEE-A27D-444E-83B7-BF557A70FAFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{219350E0-5C1A-4D54-B386-FF5DD2135850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "ConsoleApp2\TestConsole.csproj", "{219350E0-5C1A-4D54-B386-FF5DD2135850}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
