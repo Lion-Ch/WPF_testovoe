@@ -7,7 +7,7 @@ namespace DAL.Entities
     public class Employee
     {
         public int Id { get; set; }
-        public string FullName;
+        public string FullName { get; set; }
 
         public IEnumerable<Sale> Sales { get; set; }
 

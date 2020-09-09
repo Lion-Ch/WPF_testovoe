@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using DAL.Configurations;
+using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -30,10 +31,10 @@ namespace DAL.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            //modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
-            //modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            //modelBuilder.ApplyConfiguration(new SaleConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new SaleConfiguration());
         }
     }
 }
