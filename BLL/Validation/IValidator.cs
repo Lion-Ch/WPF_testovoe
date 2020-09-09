@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,14 +8,7 @@ namespace WPF_testovoe.Validator
 {
     public interface IValidator
     {
-        public string ErrorText { get; }
-
-
-        //public bool IsValid(CategoryDTO category);
-        //public bool IsValid(ProductDTO product);
-        //public bool IsValid(EmployeeDTO employee);
-        //public bool IsValid(SaleDTO sale);
-
-        //public bool IsValid<T>(IEnumerable<T> categories);
+        public bool IsValid(IValidatable objDTO);
+        public bool IsValid(IEnumerable<IValidatable> listDTO);
     }
 }
