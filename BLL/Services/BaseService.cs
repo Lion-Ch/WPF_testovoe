@@ -1,4 +1,5 @@
-﻿using DAL.EF;
+﻿using AutoMapper;
+using DAL.EF;
 using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ namespace BLL.Services
     public class BaseService
     {
         protected IUnitOfWork Database { get; set; }
-
         public BaseService(IUnitOfWork database)
         {
             Database = database;

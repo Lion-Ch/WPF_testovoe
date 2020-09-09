@@ -28,14 +28,19 @@ namespace DAL.Repositories
             return db.Employees.Find(id);
         }
 
-        public void Create(Employee Employee)
+        public void Create(Employee employee)
         {
-            db.Employees.Add(Employee);
+            db.Employees.Add(employee);
         }
 
-        public void Update(Employee Employee)
+        public void Update(Employee employee)
         {
-            db.Entry(Employee).State = EntityState.Modified;
+            var original = db.Products.Find(employee.Id);
+
+            if (original != null)
+            {
+                db.Entry(original).CurrentValues.SetValues(employee);
+            }
         }
 
         public IEnumerable<Employee> Find(Func<Employee, Boolean> predicate)

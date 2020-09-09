@@ -11,14 +11,12 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             EFUnitOfWork uow = new EFUnitOfWork("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=WebStoreDb;Integrated Security=True");
-            CategoryService categoryService = new CategoryService(uow);
-            List<CategoryDTO> list = (List<CategoryDTO>)categoryService.GetAll();
+            EmployeeService categoryService = new EmployeeService(uow);
+            List<EmployeeDTO> list = (List<EmployeeDTO>)categoryService.GetAll();
 
-            foreach(CategoryDTO c in list)
+            foreach(EmployeeDTO c in list)
             {
-                Console.WriteLine($"{c.Id} {c.Name}");
-                c.Name += " Изменено";
-                categoryService.Update(c);
+                Console.WriteLine($"{c.Id} {c.FullName} ");
             }
 
             uow.Save();

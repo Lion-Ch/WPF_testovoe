@@ -35,7 +35,12 @@ namespace DAL.Repositories
 
         public void Update(Product product)
         {
-            db.Entry(product).State = EntityState.Modified;
+            var original = db.Products.Find(product.Id);
+
+            if (original != null)
+            {
+                db.Entry(original).CurrentValues.SetValues(product);
+            }
         }
 
         public IEnumerable<Product> Find(Func<Product, Boolean> predicate)
