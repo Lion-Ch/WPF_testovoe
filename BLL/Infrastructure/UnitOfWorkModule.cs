@@ -7,10 +7,10 @@ using System.Text;
 
 namespace BLL.Infrastructure
 {
-    public class ServiceModule : NinjectModule
+    public class UnitOfWorkModule : NinjectModule
     {
         private string connectionString;
-        public ServiceModule(string connection)
+        public UnitOfWorkModule(string connection)
         {
             connectionString = connection;
         }

@@ -10,6 +10,7 @@ namespace BLL.Interfaces
         void Create(T item);
         void Update(T item);
         void Delete(int id);
+        public void Save();
         void Dispose();
     }
 }

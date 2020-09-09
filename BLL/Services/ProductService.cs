@@ -48,5 +48,9 @@ namespace BLL.Services
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Product>, List<ProductDTO>>(Database.Products.GetAll());
         }
+        public void Save()
+        {
+            Database.Save();
+        }
     }
 }

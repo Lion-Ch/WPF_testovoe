@@ -14,10 +14,6 @@ namespace BLL.Services
         {
             Database = database;
         }
-        public void Save()
-        {
-            Database.Save();
-        }
 
         public void Dispose()
         {

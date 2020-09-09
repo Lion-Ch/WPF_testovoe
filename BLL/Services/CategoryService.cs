@@ -42,5 +42,10 @@ namespace BLL.Services
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Category, CategoryDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(Database.Categories.GetAll());
         }
+
+        public void Save()
+        {
+            Database.Save();
+        }
     }
 }

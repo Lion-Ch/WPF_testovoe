@@ -1,9 +1,13 @@
 ﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:PL.Views"
+             xmlns:viewModel="clr-namespace:PL.ViewModels"
              xmlns:local="clr-namespace:PL"
-             StartupUri="MainWindow.xaml">
+             Startup="Application_Startup">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewModel:CategoriesViewModel}">
+            <view:CategoryView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
