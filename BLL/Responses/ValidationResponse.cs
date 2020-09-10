@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BLL.Response
+namespace BLL.Responses
 {
     public class ValidationResponse : Response
     {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Responses;
 using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -21,6 +22,7 @@ namespace BLL.Services
             repository = new UniversalRepository<dbType>();
             mapper = CreateMap();
         }
+
         public virtual IMapper CreateMap()
         {
             return new MapperConfiguration(cfg =>
@@ -30,28 +32,82 @@ namespace BLL.Services
             }).CreateMapper();
         }
 
-        public virtual void CreateRange(IEnumerable<dtoType> list)
+        public virtual IResponse Create(dtoType item)
         {
-            repository.CreateRange(mapper.Map<IEnumerable<dbType>>(list));
+            try
+            {
+                dbType ob = mapper.Map<dbType>(item);
+                repository.Create(ob);
+                return new Response("Данные успешно добавлены", StatusResponse.OK);
+            }
+            catch(Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
         }
-        public virtual void Create(dtoType item)
+        public virtual IResponse Update(dtoType item)
         {
-            dbType ob = mapper.Map<dbType>(item);
-            repository.Create(ob);
+            try
+            {
+                dbType ob = mapper.Map<dbType>(item);
+                repository.Update(ob);
+                return new Response("Данные успешно обновлены", StatusResponse.OK);
+            }
+            catch(Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
+        }
+        public virtual IResponse Delete(dtoType item)
+        {
+            try
+            {
+                dbType ob = mapper.Map<dbType>(item);
+                repository.Delete(ob);
+                return new Response("Данные успешно удалены", StatusResponse.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
+        }
+        public virtual IResponse CreateRange(IEnumerable<dtoType> list)
+        {
+            try
+            {
+                repository.CreateRange(mapper.Map<IEnumerable<dbType>>(list));
+                return new Response("Данные успешно добавлены", StatusResponse.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
+        }
+        public IResponse UpdateRange(IEnumerable<dtoType> list)
+        {
+            try
+            {
+                repository.UpdateRange(mapper.Map<IEnumerable<dbType>>(list));
+                return new Response("Данные успешно обновлены", StatusResponse.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
         }
 
-        public virtual void Update(dtoType item)
+        public IResponse DeleteRange(IEnumerable<dtoType> list)
         {
-            dbType ob = mapper.Map<dbType>(item);
-            repository.Update(ob);
+            try
+            {
+                repository.DeleteRange(mapper.Map<IEnumerable<dbType>>(list));
+                return new Response("Данные успешно удалены", StatusResponse.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), StatusResponse.ERROR);
+            }
         }
-
-        public virtual void Delete(dtoType item)
-        {
-            dbType ob = mapper.Map<dbType>(item);
-            repository.Delete(ob);
-        }
-
         public void Save()
         {
             repository.Save();

@@ -1,5 +1,5 @@
 ﻿using BLL.Validation;
-using BLL.Response;
+using BLL.Responses;
 using System.Collections.Generic;
 
 namespace WPF_testovoe.Validator

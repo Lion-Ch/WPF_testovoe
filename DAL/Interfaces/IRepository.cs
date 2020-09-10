@@ -7,11 +7,15 @@ namespace DAL.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        IEnumerable<T> GetAll();
-        void CreateRange(IEnumerable<T> list);
         void Create(T item);
         void Update(T item);
         void Delete(T item);
+
+        void CreateRange(IEnumerable<T> list);
+        void UpdateRange(IEnumerable<T> list);
+        void DeleteRange(IEnumerable<T> list);
+
+        IEnumerable<T> GetAll();
         void Save();
         void Dispose();
     }

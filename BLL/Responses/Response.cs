@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BLL.Response
+namespace BLL.Responses
 {
     public class Response : IResponse
     {
@@ -10,15 +10,20 @@ namespace BLL.Response
         public string Color { get; private set; }
         public StatusResponse StatusResponse { get; private set; }
 
+        
+
+        public Response()
+        {
+        }
+        public Response(StatusResponse statusResponse)
+        {
+            StatusResponse = statusResponse;
+        }
         public Response(string text, StatusResponse statusResponse)
         {
             Text = text;
             StatusResponse = statusResponse;
             Color = GetColor(statusResponse);
-        }
-
-        public Response()
-        {
         }
 
         private string GetColor(StatusResponse status)

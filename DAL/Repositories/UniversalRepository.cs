@@ -25,20 +25,28 @@ namespace DAL.Repositories
         {
             db.Set<T>().AddRange(list);
         }
+        public void UpdateRange(IEnumerable<T> list)
+        {
+            foreach (T ob in list)
+                Update(ob);
+        }
+
+        public void DeleteRange(IEnumerable<T> list)
+        {
+            db.Set<T>().RemoveRange(list);
+        }
         public void Update(T item)
         {
             var dbEntity = db.Set<T>().Find(item.Id);
-            if (dbEntity == null)
-            {
-                throw new NotImplementedException("Объект не найден. Обработка этого исключения находится на стадии разработки");
-            }
-            db.Entry(dbEntity).CurrentValues.SetValues(item);
+            if (dbEntity != null)
+                db.Entry(dbEntity).CurrentValues.SetValues(item);
         }
 
         public void Delete(T item)
         {
             T i = db.Set<T>().Find(item.Id);
-            db.Remove(i);
+            if(i!=null)
+                db.Remove(i);
         }
 
         public IEnumerable<T> GetAll()

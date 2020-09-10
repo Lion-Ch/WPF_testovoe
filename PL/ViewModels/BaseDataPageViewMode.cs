@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
-using BLL.DTO;
 using BLL.Interfaces;
-using BLL.Services;
-using DAL.Entities;
-using PL.Models;
+using BLL.Responses;
+using PL.Responses;
 using PL.Utility;
 using PL.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
 using System.Windows.Input;
 
 namespace PL.ViewModels
@@ -29,6 +25,15 @@ namespace PL.ViewModels
         /// Mapper для преобразования Model в DTO и обратно.
         /// </summary>
         protected IMapper mapper;
+        /// <summary>
+        /// Ответ от сервиса
+        /// </summary>
+        protected IResponse response;
+        public IResponse Response
+        {
+            get { return response; }
+            set { OnPropertyChanged(ref response, value); }
+        }
 
         protected List<TypeRecord> ListNewRecords { get; set; }
         protected List<TypeRecord> ListDeletedRecords { get; set; }
@@ -45,7 +50,7 @@ namespace PL.ViewModels
             {
                 if (value != null)
                     if ((ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
-                        && (ListNewRecords.IndexOf(value)==-1))
+                        && (ListNewRecords.IndexOf(value) == -1))
                         ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
@@ -83,13 +88,14 @@ namespace PL.ViewModels
             dataService = c;
             mapper = CreateMap();
             NewRecord = new TypeRecord();
+            Response = new ResponseModel();
 
-            ListNewRecords     = new List<TypeRecord>();
+            ListNewRecords = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
             ListChangedRecords = new List<TypeRecord>();
 
-            AddNewRecordCommand   = new RelayCommand(AddNewRecord);
-            DeleteRecordCommand   = new RelayCommand(DeleteRecord);
+            AddNewRecordCommand = new RelayCommand(AddNewRecord);
+            DeleteRecordCommand = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
 
             LoadRecords();
@@ -127,19 +133,23 @@ namespace PL.ViewModels
         }
         public virtual void SaveAllRecords()
         {
-            dataService.CreateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListNewRecords));
-            foreach (TypeRecord c in ListDeletedRecords)
-                dataService.Delete(mapper.Map<TypeRecord,dtoType>(c));
-            foreach (TypeRecord c in ListChangedRecords)
-                dataService.Update(mapper.Map<TypeRecord, dtoType>(c));
+            Response = dataService.CreateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListNewRecords));
+            if (Response.StatusResponse == StatusResponse.OK)
+            {
+                Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListDeletedRecords));
+                if (Response.StatusResponse == StatusResponse.OK)
+                {
+                    Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListChangedRecords));
+                }
 
+                if (ListChangedRecords.Count > 1)
+                    ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
+                ListNewRecords.Clear();
+                ListDeletedRecords.Clear();
 
-            if (ListChangedRecords.Count > 1)
-                ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
-            ListNewRecords.Clear();
-            ListDeletedRecords.Clear();
-
-            dataService.Save();
+                dataService.Save();
+                LoadRecords();
+            }
         }
         #endregion
 

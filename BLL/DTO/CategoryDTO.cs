@@ -1,5 +1,5 @@
 ﻿using BLL.Interfaces;
-using BLL.Response;
+using BLL.Responses;
 using BLL.Validation;
 using DAL.Entities;
 using System;

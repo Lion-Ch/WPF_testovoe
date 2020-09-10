@@ -75,11 +75,11 @@
             <Button Grid.Column="1" Content="Сохранить все"
                     Command="{Binding SaveAllRecordsCommand}"
                     VerticalAlignment="Top" Height="30" Margin="5"/>
-            <Grid Grid.Column="1"
+            <Grid Grid.Column="1" Background="White"
                   Height="50"
                   VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding Notification.Text}"
-                           FontSize="14" Foreground="{Binding Notification.Color}" FontWeight="Bold"
+                <TextBlock Text="{Binding Response.Text}"
+                           FontSize="14" Foreground="{Binding Response.Color}" FontWeight="Bold"
                            TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Grid>

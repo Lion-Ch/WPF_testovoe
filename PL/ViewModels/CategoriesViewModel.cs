@@ -17,7 +17,6 @@ namespace PL.ViewModels
         public CategoriesViewModel()
             :base(new UniversalService<Category, CategoryDTO>())
         {
-            NewRecord = new CategoryModel();
         }
 
         #region DataService
