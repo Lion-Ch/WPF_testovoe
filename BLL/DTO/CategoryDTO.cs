@@ -7,9 +7,9 @@ using System.Text;
 
 namespace BLL.DTO
 {
-    public class CategoryDTO: BaseModel, IValidatable
+    public class CategoryDTO: IValidatable
     {
-        public override int Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         //public Category Copy()

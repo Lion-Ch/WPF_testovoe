@@ -1,7 +1,9 @@
-﻿using BLL.DTO;
+﻿using AutoMapper;
+using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.Entities;
+using PL.Models;
 using PL.Utility;
 using PL.ViewModels.Interfaces;
 using System;
@@ -12,11 +14,21 @@ using System.Windows.Input;
 
 namespace PL.ViewModels
 {
-    public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>, IDisposable
-        where TypeRecord: BaseModel
+    public class BaseDataPageViewModel<TypeRecord, dtoType> : ObservableObject, IDataPageService, IDisposable
+        where TypeRecord : ObservableObject, new()
+        where dtoType : class
     {
         #region Поля
-        protected IDataService<TypeRecord> dataService;
+        /// <summary>
+        /// Сервис работающий с БД (DTO -> DB)
+        /// Производит валидацию и другие бизнес процессы.
+        /// </summary>
+        protected IDataService<dtoType> dataService;
+        /// <summary>
+        /// Mapper для преобразования Model в DTO и обратно.
+        /// </summary>
+        protected IMapper mapper;
+
         protected List<TypeRecord> ListNewRecords { get; set; }
         protected List<TypeRecord> ListDeletedRecords { get; set; }
         protected List<TypeRecord> ListChangedRecords { get; set; }
@@ -32,7 +44,7 @@ namespace PL.ViewModels
             {
                 if (value != null)
                     if ((ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
-                        &&(value.Id != 0))
+                        && (ListNewRecords.IndexOf(value)==-1))
                         ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
@@ -65,9 +77,10 @@ namespace PL.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(IDataService<TypeRecord> c)
+        public BaseDataPageViewModel(IDataService<dtoType> c)
         {
             dataService = c;
+            mapper = CreateMap();
 
             ListNewRecords = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
@@ -82,20 +95,49 @@ namespace PL.ViewModels
         #endregion
 
         #region DataService
+        public virtual IMapper CreateMap()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TypeRecord, dtoType>();
+                cfg.CreateMap<dtoType, TypeRecord>();
+            }).CreateMapper();
+        }
+
         public virtual void DeleteRecord()
         {
+            if (SelectedRecord != null)
+            {
+                if (ListNewRecords.IndexOf(SelectedRecord) == -1)
+                    ListDeletedRecords.Add(SelectedRecord);
+                Records.Remove(SelectedRecord);
+            }
         }
         public virtual void AddNewRecord()
         {
-        }
-        public virtual void AddNewRecordPreProcess()
-        {
+            ListNewRecords.Add(NewRecord);
+            Records.Add(NewRecord);
+            NewRecord = new TypeRecord();
         }
         public virtual void LoadRecords()
         {
+            Records = new ObservableCollection<TypeRecord>(mapper.Map<IEnumerable<dtoType>, List<TypeRecord>>(dataService.GetAll()));
         }
         public virtual void SaveAllRecords()
         {
+            dataService.CreateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListNewRecords));
+            foreach (TypeRecord c in ListDeletedRecords)
+                dataService.Delete(mapper.Map<TypeRecord,dtoType>(c));
+            foreach (TypeRecord c in ListChangedRecords)
+                dataService.Update(mapper.Map<TypeRecord, dtoType>(c));
+
+
+            if (ListChangedRecords.Count > 1)
+                ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
+            ListNewRecords.Clear();
+            ListDeletedRecords.Clear();
+
+            dataService.Save();
         }
         #endregion
 
