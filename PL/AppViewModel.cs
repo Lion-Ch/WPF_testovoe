@@ -29,10 +29,10 @@ namespace PL
         public ICommand LoadProductPageCommand { get; private set; }
         public ICommand LoadSalePageCommand { get; private set; }
         #endregion
-        public AppViewModel(IDataService<CategoryDTO> dataService)
+        public AppViewModel()
         {
 
-            CurrentView = new CategoriesViewModel(dataService);
+            CurrentView = new CategoriesViewModel();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             //LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
             //LoadProductPageCommand = new RelayCommand(LoadProductPage);

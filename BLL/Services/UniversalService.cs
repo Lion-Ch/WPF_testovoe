@@ -1,54 +1,83 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using DAL.Entities;
 using DAL.Interfaces;
+using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BLL.Services
 {
-    public class UniversalService<dbType,dtoType,uiType> : BaseService, IDataService<dtoType>
-        where dbType: class
+    public class UniversalService<dbType,dtoType> : IDataService<dtoType>, IDisposable
+        where dbType: BaseModel
         where dtoType: class
-        where uiType: class
     {
+        private IRepository<dbType> repository;
+        private IMapper mapper;
 
-        private IMapper mapInBase;
-        private IMapper mapOutBase;
-        private IMapper mapToUI;
-        public UniversalService(IUnitOfWork uow) : base(uow)
+        public UniversalService()
         {
-            mapInBase = new MapperConfiguration(cfg => cfg.CreateMap<dtoType, dbType>()).CreateMapper();
-            mapOutBase = new MapperConfiguration(cfg => cfg.CreateMap<dbType, dtoType>()).CreateMapper();
-            mapToUI = new MapperConfiguration(cfg => cfg.CreateMap<uiType,dtoType>()).CreateMapper();
+            repository = new UniversalRepository<dbType>();
+            mapper = CreateMap();
+        }
+        public virtual IMapper CreateMap()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<dtoType, dbType>();
+                cfg.CreateMap<dbType, dtoType>();
+            }).CreateMapper();
         }
 
-        public void Create(dtoType item)
+        public virtual void CreateRange(IEnumerable<dtoType> list)
         {
-            var ob = mapInBase.Map<dbType>(item);
-            Database.Universal<dbType>().Create(ob);
+            repository.CreateRange(mapper.Map<IEnumerable<dbType>>(list));
+        }
+        public virtual void Create(dtoType item)
+        {
+            dbType ob = mapper.Map<dbType>(item);
+            repository.Create(ob);
         }
 
-        public void Delete(int id)
+        public virtual void Update(dtoType item)
         {
-            throw new NotImplementedException();
+            dbType ob = mapper.Map<dbType>(item);
+            repository.Update(ob);
         }
 
-        public IEnumerable<dtoType> GetAll()
+        public virtual void Delete(dtoType item)
         {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<dbType, dtoType>()).CreateMapper();
-            return mapOutBase.Map<IEnumerable<dbType>, List<dtoType>>(Database.Universal<dbType>().GetAll());
+            dbType ob = mapper.Map<dbType>(item);
+            repository.Delete(ob);
         }
 
         public void Save()
         {
-            Database.Save();
+            repository.Save();
         }
 
-        public void Update(dtoType item)
+        public virtual IEnumerable<dtoType> GetAll()
         {
-            var ob = mapInBase.Map<dbType>(item);
-            Database.Universal<dbType>().Update(ob);
+            return mapper.Map<IEnumerable<dbType>, List<dtoType>>(repository.GetAll());
+        }
+
+        private bool disposed = false;
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    repository.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

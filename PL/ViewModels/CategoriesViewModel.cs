@@ -12,11 +12,11 @@ namespace PL.ViewModels
 {
     public class CategoriesViewModel: BaseDataPageViewModel<CategoryDTO>
     {
-        //private UniversalService<Category, CategoryDTO, CategoryModel> universalService;
-        public CategoriesViewModel(IDataService<CategoryDTO> dataService)
-               : base(dataService)
+        //private UniversalService<Category, CategoryDTO> dataService;
+
+        public CategoriesViewModel()
+            :base(new UniversalService<Category, CategoryDTO>())
         {
-            this.dataService = dataService;
             NewRecord = new CategoryDTO();
         }
 
@@ -25,9 +25,9 @@ namespace PL.ViewModels
         {
             if (SelectedRecord != null)
             {
-                ListDeletedRecords.Add(SelectedRecord);
+                if (SelectedRecord.Id != 0)
+                    ListDeletedRecords.Add(SelectedRecord);
                 Records.Remove(SelectedRecord);
-
                 //Notification.SetData(Properties.Resources.DeleteRecordSuccessfully, "Green");
             }
             //else
@@ -53,10 +53,9 @@ namespace PL.ViewModels
         }
         public override void SaveAllRecords()
         {
-            foreach(CategoryDTO c in ListNewRecords)
-                dataService.Create(c);
+            dataService.CreateRange(ListNewRecords);
             foreach (CategoryDTO c in ListDeletedRecords)
-                dataService.Delete(c.Id);
+                dataService.Delete(c);
             foreach (CategoryDTO c in ListChangedRecords)
                 dataService.Update(c);
             //if (Validator.IsValid(ListChangedRecords))

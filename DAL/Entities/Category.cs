@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public class Category
+    public class Category: BaseModel
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
 
         public List<Product> Products { get; set; }

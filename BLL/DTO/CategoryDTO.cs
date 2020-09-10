@@ -7,15 +7,15 @@ using System.Text;
 
 namespace BLL.DTO
 {
-    public class CategoryDTO: IValidatable, ICopiedToBase<Category>
+    public class CategoryDTO: BaseModel, IValidatable
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
 
-        public Category Copy()
-        {
-            return new Category { Id = Id, Name = Name };
-        }
+        //public Category Copy()
+        //{
+        //    return new Category { Id = Id, Name = Name };
+        //}
 
         public bool IsValid(string errorText)
         {

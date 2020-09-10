@@ -1,16 +1,18 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DAL.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : BaseModel
     {
         IEnumerable<T> GetAll();
-        T Get(int id);
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
+        void CreateRange(IEnumerable<T> list);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(T item);
+        void Save();
+        void Dispose();
     }
 }

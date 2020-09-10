@@ -1,4 +1,7 @@
-﻿using BLL.Interfaces;
+﻿using BLL.DTO;
+using BLL.Interfaces;
+using BLL.Services;
+using DAL.Entities;
 using PL.Utility;
 using PL.ViewModels.Interfaces;
 using System;
@@ -9,8 +12,8 @@ using System.Windows.Input;
 
 namespace PL.ViewModels
 {
-    public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>
-        where TypeRecord: class
+    public class BaseDataPageViewModel<TypeRecord> : ObservableObject, IDataPageService<TypeRecord>, IDisposable
+        where TypeRecord: BaseModel
     {
         #region Поля
         protected IDataService<TypeRecord> dataService;
@@ -28,7 +31,8 @@ namespace PL.ViewModels
             set
             {
                 if (value != null)
-                    if (ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
+                    if ((ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
+                        &&(value.Id != 0))
                         ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
@@ -61,9 +65,9 @@ namespace PL.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(IDataService<TypeRecord> service)
+        public BaseDataPageViewModel(IDataService<TypeRecord> c)
         {
-            dataService = service;
+            dataService = c;
 
             ListNewRecords = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
@@ -93,9 +97,25 @@ namespace PL.ViewModels
         public virtual void SaveAllRecords()
         {
         }
-        public virtual bool CanAddRecord()
+        #endregion
+
+        #region Dispose
+        private bool disposed = false;
+        public virtual void Dispose(bool disposing)
         {
-            return true;
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dataService.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
         #endregion
     }
