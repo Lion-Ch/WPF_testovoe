@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.Views.CategoryPage
+namespace PL.Views.ProductPage
 {
     /// <summary>
-    /// Логика взаимодействия для CategoryView.xaml
+    /// Логика взаимодействия для ProductItemView.xaml
     /// </summary>
-    public partial class CategoryView : UserControl
+    public partial class ProductItemView : UserControl
     {
-        public CategoryView()
+        public ProductItemView()
         {
             InitializeComponent();
         }

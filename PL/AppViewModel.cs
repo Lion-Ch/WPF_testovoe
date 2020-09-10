@@ -15,8 +15,8 @@ namespace PL
     public class AppViewModel: ObservableObject
     {
         #region Текущая View
-        private object _currentView;
-        public object CurrentView
+        private IDisposable _currentView;
+        public IDisposable CurrentView
         {
             get { return _currentView; }
             set { OnPropertyChanged(ref _currentView, value); }
@@ -35,7 +35,7 @@ namespace PL
             CurrentView = new CategoriesViewModel();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             //LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
-            //LoadProductPageCommand = new RelayCommand(LoadProductPage);
+            LoadProductPageCommand = new RelayCommand(LoadProductPage);
             //LoadSalePageCommand = new RelayCommand(LoadSalePage);
         }
         #region Реализация комманд
@@ -46,10 +46,11 @@ namespace PL
         public void LoadCategoriesPage()
         {
         }
-        //public void LoadProductPage()
-        //{
-        //    CurrentView = new ProductsViewModel();
-        //}
+        public void LoadProductPage()
+        {
+            CurrentView.Dispose();
+            CurrentView = new ProductsViewModel();
+        }
         //public void LoadSalePage()
         //{
         //    CurrentView = new SalesViewModel();

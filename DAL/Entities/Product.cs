@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public class Product 
+    public class Product : BaseEntity
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
         public int Amount { get; set; }
 
