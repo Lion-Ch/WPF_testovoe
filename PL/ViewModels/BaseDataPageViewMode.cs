@@ -137,19 +137,17 @@ namespace PL.ViewModels
             if (Response.StatusResponse == StatusResponse.OK)
             {
                 Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListDeletedRecords));
+                ListDeletedRecords.Clear();
                 if (Response.StatusResponse == StatusResponse.OK)
                 {
-                    Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListChangedRecords));
+                    Response = dataService.UpdateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListChangedRecords));
+                    if (ListChangedRecords.Count > 1)
+                        ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
                 }
-
-                if (ListChangedRecords.Count > 1)
-                    ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
-                ListNewRecords.Clear();
-                ListDeletedRecords.Clear();
-
-                dataService.Save();
-                LoadRecords();
             }
+            ListNewRecords.Clear();
+            dataService.Save();
+            LoadRecords();
         }
         #endregion
 

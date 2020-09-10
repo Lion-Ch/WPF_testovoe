@@ -33,7 +33,8 @@ namespace DAL.Repositories
 
         public void DeleteRange(IEnumerable<T> list)
         {
-            db.Set<T>().RemoveRange(list);
+            foreach (T ob in list)
+                Delete(ob);
         }
         public void Update(T item)
         {
