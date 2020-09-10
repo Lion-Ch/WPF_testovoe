@@ -10,7 +10,7 @@ using System.Text;
 namespace BLL.Services
 {
     public class UniversalService<dbType,dtoType> : IDataService<dtoType>, IDisposable
-        where dbType: BaseModel
+        where dbType: BaseEntity
         where dtoType: class
     {
         private IRepository<dbType> repository;

@@ -1,4 +1,5 @@
-﻿using BLL.Validation;
+﻿using BLL.Response;
+using BLL.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,15 +13,17 @@ namespace BLL.DTO
         public int ProductId { get; set; }
         public int EmployeeId { get; set; }
 
-        public bool IsValid(string errorText)
+        public ValidationResponse IsValid()
         {
             if (Amount < 0)
             {
-                errorText = Resources.AmountValidateError + $", Продавец: {EmployeeId}, Товар: {ProductId}";
-                return false;
+                return new ValidationResponse(
+                             false,
+                             Resources.AmountValidateError + $", Продавец: {EmployeeId}, Товар: {ProductId}",
+                            StatusResponse.WARNING);
             }
 
-            return true;
+            return new ValidationResponse(true);
         }
     }
 }

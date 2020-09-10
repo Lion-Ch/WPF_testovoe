@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Interfaces
 {
-    public interface IRepository<T> where T : BaseModel
+    public interface IRepository<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         void CreateRange(IEnumerable<T> list);

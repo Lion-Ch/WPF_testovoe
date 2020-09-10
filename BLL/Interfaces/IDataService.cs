@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.Interfaces
 {
-    public interface IDataService<T> where T : class
+    public interface IDataService<T>
     {
         IEnumerable<T> GetAll();
         void CreateRange(IEnumerable<T> list);

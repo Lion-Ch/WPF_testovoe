@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Response;
 using BLL.Validation;
 using System;
 using System.Collections.Generic;
@@ -7,20 +8,21 @@ namespace WPF_testovoe.Validator
 {
     public class BaseValidator : IValidator
     {
-        public string ErrorText { get; private set; }
+        public IResponse Response { get; private set; }
 
-        public bool IsValid(IValidatable objDTO)
+        public ValidationResponse IsValid(IValidatable objDTO)
         {
-            return objDTO.IsValid(ErrorText);
+            return objDTO.IsValid();
         }
-        public bool IsValid(IEnumerable<IValidatable> listDTO) 
+        public ValidationResponse IsValid(IEnumerable<IValidatable> listDTO) 
         {
             foreach (IValidatable ob in listDTO)
             {
-                if (ob.IsValid(ErrorText))
-                    return false;
+                var response = ob.IsValid();
+                if (response.IsValid)
+                    return response;
             }
-            return true;
+            return new ValidationResponse(true);
         }
     }
 }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PL.ViewModels
@@ -81,13 +82,14 @@ namespace PL.ViewModels
         {
             dataService = c;
             mapper = CreateMap();
+            NewRecord = new TypeRecord();
 
-            ListNewRecords = new List<TypeRecord>();
+            ListNewRecords     = new List<TypeRecord>();
             ListDeletedRecords = new List<TypeRecord>();
             ListChangedRecords = new List<TypeRecord>();
 
-            AddNewRecordCommand = new RelayCommand(AddNewRecord);
-            DeleteRecordCommand = new RelayCommand(DeleteRecord);
+            AddNewRecordCommand   = new RelayCommand(AddNewRecord);
+            DeleteRecordCommand   = new RelayCommand(DeleteRecord);
             SaveAllRecordsCommand = new RelayCommand(SaveAllRecords);
 
             LoadRecords();

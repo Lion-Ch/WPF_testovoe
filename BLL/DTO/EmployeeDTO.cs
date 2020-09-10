@@ -1,4 +1,5 @@
-﻿using BLL.Validation;
+﻿using BLL.Response;
+using BLL.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,15 +11,17 @@ namespace BLL.DTO
         public int Id { get; set; }
         public string FullName { get; set; }
 
-        public bool IsValid(string errorText)
+        public ValidationResponse IsValid()
         {
             if (String.IsNullOrEmpty(FullName))
             {
-                errorText = Resources.StringValidateError + $" Сотрудник ID:{Id}";
-                return false;
+                return new ValidationResponse(
+                       false,
+                       Resources.StringValidateError + $" Сотрудник ID:{Id}",
+                       StatusResponse.WARNING);
             }
 
-            return true;
+            return new ValidationResponse(true);
         }
     }
 }

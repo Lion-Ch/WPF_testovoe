@@ -9,7 +9,7 @@ using System.Text;
 namespace DAL.Repositories
 {
     public class UniversalRepository<T> : IRepository<T> , IDisposable
-        where T: BaseModel
+        where T: BaseEntity
     {
         private ShopContext db;
 

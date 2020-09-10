@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public abstract class BaseModel
+    public abstract class BaseEntity
     {
         public virtual int Id { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public class Category: BaseModel
+    public class Category: BaseEntity
     {
         public override int Id { get; set; }
         public string Name { get; set; }

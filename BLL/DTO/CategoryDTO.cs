@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using BLL.Response;
 using BLL.Validation;
 using DAL.Entities;
 using System;
@@ -17,15 +18,17 @@ namespace BLL.DTO
         //    return new Category { Id = Id, Name = Name };
         //}
 
-        public bool IsValid(string errorText)
+        public ValidationResponse IsValid()
         {
             if (String.IsNullOrEmpty(Name))
             {
-                errorText = Resources.StringValidateError + $" Категория ID:{Id}";
-                return false;
+                return new ValidationResponse(
+                    false,
+                    Resources.StringValidateError + $" Категория ID:{Id}",
+                    StatusResponse.WARNING);
             }
 
-            return true;
+            return new ValidationResponse(true);
         }
 
     }
