@@ -1,14 +1,21 @@
-﻿using BLL.Validation;
+﻿using BLL.Interfaces;
+using BLL.Validation;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BLL.DTO
 {
-    public class CategoryDTO: IValidatable
+    public class CategoryDTO: IValidatable, ICopiedToBase<Category>
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public Category Copy()
+        {
+            return new Category { Id = Id, Name = Name };
+        }
 
         public bool IsValid(string errorText)
         {
@@ -20,5 +27,6 @@ namespace BLL.DTO
 
             return true;
         }
+
     }
 }

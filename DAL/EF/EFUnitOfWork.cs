@@ -15,10 +15,18 @@ namespace DAL.EF
         private ProductRepository productRepository;
         private SaleRepository saleRepository;
 
+
         public EFUnitOfWork(string connectionString)
         {
             db = new ShopContext(connectionString);
         }
+
+        public IRepository<T> Universal<T>()
+            where T: class
+        {
+            return new UniversalRepository<T>(db);
+        }
+
         public IRepository<Category> Categories
         {
             get

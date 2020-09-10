@@ -29,7 +29,7 @@ namespace PL
         public ICommand LoadProductPageCommand { get; private set; }
         public ICommand LoadSalePageCommand { get; private set; }
         #endregion
-        public AppViewModel(IDataService<CategoryModel> dataService)
+        public AppViewModel(IDataService<CategoryDTO> dataService)
         {
 
             CurrentView = new CategoriesViewModel(dataService);

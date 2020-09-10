@@ -1,5 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using BLL.Services;
+using DAL.Entities;
 using PL.Models;
 using System;
 using System.Collections.Generic;
@@ -8,13 +10,14 @@ using System.Text;
 
 namespace PL.ViewModels
 {
-    public class CategoriesViewModel: BaseDataPageViewModel<CategoryModel>
+    public class CategoriesViewModel: BaseDataPageViewModel<CategoryDTO>
     {
-        public CategoriesViewModel(IDataService<CategoryModel> dataService)
+        //private UniversalService<Category, CategoryDTO, CategoryModel> universalService;
+        public CategoriesViewModel(IDataService<CategoryDTO> dataService)
                : base(dataService)
         {
             this.dataService = dataService;
-            NewRecord = new CategoryModel();
+            NewRecord = new CategoryDTO();
         }
 
         #region DataService
@@ -40,21 +43,21 @@ namespace PL.ViewModels
 
             ListNewRecords.Add(NewRecord);
             Records.Add(NewRecord);
-            NewRecord = new CategoryModel();
+            NewRecord = new CategoryDTO();
 
             //Notification.SetData(Properties.Resources.AddNewRecordSuccessfully, "Green");
         }
         public override void LoadRecords()
         {
-            Records = new ObservableCollection<CategoryModel>(dataService.GetAll());
+            Records = new ObservableCollection<CategoryDTO>(dataService.GetAll());
         }
         public override void SaveAllRecords()
         {
-            foreach(CategoryModel c in ListNewRecords)
+            foreach(CategoryDTO c in ListNewRecords)
                 dataService.Create(c);
-            foreach (CategoryModel c in ListDeletedRecords)
+            foreach (CategoryDTO c in ListDeletedRecords)
                 dataService.Delete(c.Id);
-            foreach (CategoryModel c in ListChangedRecords)
+            foreach (CategoryDTO c in ListChangedRecords)
                 dataService.Update(c);
             //if (Validator.IsValid(ListChangedRecords))
             //{
