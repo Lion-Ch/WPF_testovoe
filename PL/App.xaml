@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:PL.Views"
              xmlns:viewModel="clr-namespace:PL.ViewModels"
              xmlns:local="clr-namespace:PL"
-             Startup="Application_Startup">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type viewModel:CategoriesViewModel}">
             <view:CategoryView/>

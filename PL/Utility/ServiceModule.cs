@@ -12,10 +12,10 @@ namespace PL.Utility
     {
         public override void Load()
         {
-            Bind<IDataService<CategoryDTO>>().To<CategoryService>();
-            Bind<IDataService<EmployeeDTO>>().To<EmployeeService>();
-            Bind<IDataService<ProductDTO>>().To<ProductService>();
-            Bind<IDataService<SaleDTO>>().To<SaleService>();
+            //Bind<IDataService<CategoryDTO>>().To<CategoryService>();
+            //Bind<IDataService<EmployeeDTO>>().To<EmployeeService>();
+            //Bind<IDataService<ProductDTO>>().To<ProductService>();
+            //Bind<IDataService<SaleDTO>>().To<SaleService>();
         }
     }
 }

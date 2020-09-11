@@ -9,50 +9,37 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class SaleRepository: IRepository<Sale>
+    public class SaleRepository: BaseRepository, IRepository<Sale>
     {
-        private ShopContext db;
-
-        public SaleRepository(ShopContext context)
-        {
-            this.db = context;
-        }
-
         public IEnumerable<Sale> GetAll()
         {
-            return db.Sales;
+            return db.Sales.ToList();
         }
-
-        public Sale Get(int id)
+        public void CreateRange(IEnumerable<Sale> list)
         {
-            return db.Sales.Find(id);
+            db.Sales.AddRange(list);
         }
-
-        public void Create(Sale sale)
+        public void UpdateRange(IEnumerable<Sale> list)
         {
-            db.Sales.Add(sale);
-        }
-
-        public void Update(Sale sale)
-        {
-            var original = db.Products.Find(sale.ProductId, sale.EmployeeId);
-
-            if (original != null)
+            foreach (Sale ob in list)
             {
-                db.Entry(original).CurrentValues.SetValues(sale);
+                Sale original = db.Sales.Find(ob.EmployeeId,ob.ProductId);
+
+                if (original != null)
+                {
+                    db.Entry(original).CurrentValues.SetValues(ob);
+                }
             }
         }
-
-        public IEnumerable<Sale> Find(Func<Sale, Boolean> predicate)
+        public void DeleteRange(IEnumerable<Sale> list)
         {
-            return db.Sales.Where(predicate).ToList();
-        }
+            foreach (Sale ob in list)
+            {
+                Sale a = db.Sales.Find(ob.EmployeeId,ob.ProductId);
 
-        public void Delete(int id)
-        {
-            Sale sale = db.Sales.Find(id);
-            if (sale != null)
-                db.Sales.Remove(sale);
+                if (a != null)
+                    db.Sales.Remove(a);
+            }
         }
     }
 }

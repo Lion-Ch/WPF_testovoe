@@ -13,9 +13,7 @@ namespace PL.ViewModels.Interfaces
 
         public abstract void DeleteRecord();
         public abstract void AddNewRecord();
-        public abstract void AddNewRecordPreProcess();
         public abstract void LoadRecords();
         public abstract void SaveAllRecords();
-        public abstract bool CanAddRecord();
     }
 }

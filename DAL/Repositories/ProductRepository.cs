@@ -9,50 +9,37 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class ProductRepository: IRepository<Product>
+    public class ProductRepository: BaseRepository, IRepository<Product>
     {
-        private ShopContext db;
-
-        public ProductRepository(ShopContext context)
-        {
-            this.db = context;
-        }
-
         public IEnumerable<Product> GetAll()
         {
-            return db.Products;
+            return db.Products.ToList();
         }
-
-        public Product Get(int id)
+        public void CreateRange(IEnumerable<Product> list)
         {
-            return db.Products.Find(id);
+            db.Products.AddRange(list);
         }
-
-        public void Create(Product product)
+        public void UpdateRange(IEnumerable<Product> list)
         {
-            db.Products.Add(product);
-        }
-
-        public void Update(Product product)
-        {
-            var original = db.Products.Find(product.Id);
-
-            if (original != null)
+            foreach (Product ob in list)
             {
-                db.Entry(original).CurrentValues.SetValues(product);
+                Product original = db.Products.Find(ob.Id);
+
+                if (original != null)
+                {
+                    db.Entry(original).CurrentValues.SetValues(ob);
+                }
             }
         }
-
-        public IEnumerable<Product> Find(Func<Product, Boolean> predicate)
+        public void DeleteRange(IEnumerable<Product> list)
         {
-            return db.Products.Where(predicate).ToList();
-        }
+            foreach (Product ob in list)
+            {
+                Product a = db.Products.Find(ob.Id);
 
-        public void Delete(int id)
-        {
-            Product product = db.Products.Find(id);
-            if (product != null)
-                db.Products.Remove(product);
+                if (a != null)
+                    db.Products.Remove(a);
+            }
         }
     }
 }

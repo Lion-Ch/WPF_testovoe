@@ -9,44 +9,26 @@ using System.Text;
 
 namespace BLL.Services
 {
-    public class EmployeeService: BaseService, IDataService<EmployeeDTO>
+    public class EmployeeService: BaseService<Employee,EmployeeDTO>, IDataService<EmployeeDTO>
     {
-        public EmployeeService(IUnitOfWork uow) : base(uow)
+        public EmployeeService(IRepository<Employee> rep) : base(rep)
         {
         }
-
-        public void Create(EmployeeDTO employeeDTO)
-        {
-            Employee product = new Employee
-            {
-                FullName = employeeDTO.FullName
-            };
-            Database.Employees.Create(product);
-        }
-
-        public void Update(EmployeeDTO employeeDTO)
-        {
-            Database.Employees.Update(new Employee
-            {
-                Id = employeeDTO.Id,
-                FullName = employeeDTO.FullName
-            }
-            );
-        }
-
-        public void Delete(int id)
-        {
-            Database.Categories.Delete(id);
-        }
-
-        public IEnumerable<EmployeeDTO> GetAll()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
-        }
-        public void Save()
-        {
-            Database.Save();
-        }
+        //public void CreateRange(IEnumerable<EmployeeDTO> list)
+        //{
+        //    Repository.CreateRange(mapper.Map<IEnumerable<Employee>>(list));
+        //}
+        //public void UpdateRange(IEnumerable<EmployeeDTO> list)
+        //{
+        //    Repository.UpdateRange(mapper.Map<IEnumerable<Employee>>(list));
+        //}
+        //public void DeleteRange(IEnumerable<EmployeeDTO> list)
+        //{
+        //    Repository.DeleteRange(mapper.Map<IEnumerable<Employee>>(list));
+        //}
+        //public IEnumerable<EmployeeDTO> GetAll()
+        //{
+        //    return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Repository.GetAll());
+        //}
     }
 }

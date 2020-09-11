@@ -9,50 +9,37 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class EmployeeRepository: IRepository<Employee>
+    public class EmployeeRepository: BaseRepository, IRepository<Employee>
     {
-        private ShopContext db;
-
-        public EmployeeRepository(ShopContext context)
-        {
-            this.db = context;
-        }
-
         public IEnumerable<Employee> GetAll()
         {
             return db.Employees;
         }
-
-        public Employee Get(int id)
+        public void CreateRange(IEnumerable<Employee> list)
         {
-            return db.Employees.Find(id);
+            db.Employees.AddRange(list);
         }
-
-        public void Create(Employee employee)
+        public void UpdateRange(IEnumerable<Employee> list)
         {
-            db.Employees.Add(employee);
-        }
-
-        public void Update(Employee employee)
-        {
-            var original = db.Products.Find(employee.Id);
-
-            if (original != null)
+            foreach (Employee ob in list)
             {
-                db.Entry(original).CurrentValues.SetValues(employee);
+                Employee original = db.Employees.Find(ob.Id);
+
+                if (original != null)
+                {
+                    db.Entry(original).CurrentValues.SetValues(ob);
+                }
             }
         }
-
-        public IEnumerable<Employee> Find(Func<Employee, Boolean> predicate)
+        public void DeleteRange(IEnumerable<Employee> list)
         {
-            return db.Employees.Where(predicate).ToList();
-        }
+            foreach (Employee ob in list)
+            {
+                Employee a = db.Employees.Find(ob.Id);
 
-        public void Delete(int id)
-        {
-            Employee employee = db.Employees.Find(id);
-            if (employee != null)
-                db.Employees.Remove(employee);
+                if (a != null)
+                    db.Employees.Remove(a);
+            }
         }
     }
 }

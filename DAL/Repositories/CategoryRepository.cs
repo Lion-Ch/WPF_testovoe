@@ -9,50 +9,35 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : IRepository<Category>
+    public class CategoryRepository : BaseRepository, IRepository<Category>
     {
-        private ShopContext db;
-
-        public CategoryRepository(ShopContext context)
-        {
-            this.db = context;
-        }
-
         public IEnumerable<Category> GetAll()
         {
-            return db.Categories;
+            return db.Categories.AsNoTracking().ToList();
         }
-
-        public Category Get(int id)
+        public void CreateRange(IEnumerable<Category> list)
         {
-            return db.Categories.Find(id);
+            db.Categories.AddRange(list);
         }
-
-        public void Create(Category category)
+        public void UpdateRange(IEnumerable<Category> list)
         {
-            db.Categories.Add(category);
-        }
-
-        public void Update(Category category)
-        {
-            var original = db.Categories.Find(category.Id);
-
-            if (original != null)
+            foreach(Category ob in list)
             {
-                db.Entry(original).CurrentValues.SetValues(category);
+                Category original = db.Categories.Find(ob.Id);
+
+                if (original != null)
+                    db.Entry(original).CurrentValues.SetValues(ob);
             }
         }
-
-        public IEnumerable<Category> Find(Func<Category, Boolean> predicate)
+        public void DeleteRange(IEnumerable<Category> list)
         {
-            return db.Categories.Where(predicate).ToList();
-        }
+            foreach(Category ob in list)
+            {
+                Category a = db.Categories.Find(ob.Id);
 
-        public void Delete(int id)
-        {
-            Category category = db.Categories.Find(id);
-            if (category != null)
-                db.Categories.Remove(category);
+                if (a != null)
+                    db.Categories.Remove(a);
+            }
         }
     }
 }
