@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Responses;
+using DAL.EF;
 using DAL.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -17,9 +18,9 @@ namespace BLL.Services
         private IRepository<dbType> repository;
         private IMapper mapper;
 
-        public UniversalService()
+        public UniversalService(EFUnitOfWork uow)
         {
-            repository = new UniversalRepository<dbType>();
+            repository = uow.GetRepository<dbType>();
             mapper = CreateMap();
         }
 

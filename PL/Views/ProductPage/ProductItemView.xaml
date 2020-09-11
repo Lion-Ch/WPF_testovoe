@@ -25,7 +25,7 @@
                            VerticalAlignment="Center" TextAlignment="Left"/>
             </Grid>
             <Grid Grid.Column="1">
-                <TextBlock Grid.Column="0" Text="{Binding Category.Name}" 
+                <TextBlock Grid.Column="0" Text="{Binding CategoryModel.Name}" 
                            FontSize="20" Padding="20 0"
                            VerticalAlignment="Center" TextAlignment="Left"/>
             </Grid>

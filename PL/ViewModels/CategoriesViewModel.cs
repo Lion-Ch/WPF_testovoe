@@ -1,6 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
 using BLL.Services;
+using DAL.EF;
 using DAL.Entities;
 using PL.Models;
 using System;
@@ -13,7 +14,7 @@ namespace PL.ViewModels
     public class CategoriesViewModel: BaseDataPageViewModel<CategoryModel, CategoryDTO>
     {
         public CategoriesViewModel()
-            :base(new UniversalService<Category, CategoryDTO>())
+            :base(new UniversalService<Category, CategoryDTO>(new EFUnitOfWork()))
         {
         }
     }

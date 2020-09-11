@@ -14,6 +14,6 @@ namespace PL.Models
             get { return _name; }
             set { OnPropertyChanged(ref _name, value); }
         }
-        public int CategoryId { get; set; }
+        public CategoryModel CategoryModel{ get; set; }
     }
 }

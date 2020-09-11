@@ -32,7 +32,7 @@ namespace PL
         public AppViewModel()
         {
 
-            CurrentView = new CategoriesViewModel();
+            CurrentView = new ProductsViewModel();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             //LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
             LoadProductPageCommand = new RelayCommand(LoadProductPage);

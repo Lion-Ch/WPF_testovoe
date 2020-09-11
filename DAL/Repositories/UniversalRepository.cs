@@ -1,6 +1,7 @@
 ﻿using DAL.EF;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace DAL.Repositories
     {
         private ShopContext db;
 
-        public UniversalRepository()
+        public UniversalRepository(ShopContext context)
         {
-            db = new ShopContext();
+            db = context;
         }
         public void Create(T item)
         {
