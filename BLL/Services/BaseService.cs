@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BLL.Services
 {
-    public class BaseService<dbType,dtoType>: IMapped<dbType,dtoType>, IDisposable
+    public class BaseService<dbType,dtoType>: IDataService<dtoType>, IMapped<dbType,dtoType>, IDisposable
     {
         protected IRepository<dbType> Repository { get; set; }
         protected IMapper mapper { get; set; }

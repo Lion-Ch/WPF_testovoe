@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BLL.Services
 {
-    public class CategoryService : BaseService<Category,CategoryDTO>, IDataService<CategoryDTO>
+    public class CategoryService : BaseService<Category,CategoryDTO>
     {
         public CategoryService():base(new CategoryRepository())
         {

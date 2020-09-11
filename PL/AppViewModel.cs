@@ -37,8 +37,8 @@ namespace PL
 
             CurrentView = new CategoriesViewModel();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
+            LoadProductPageCommand = new RelayCommand(LoadProductPage);
             //LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
-            //LoadProductPageCommand = new RelayCommand(LoadProductPage);
             //LoadSalePageCommand = new RelayCommand(LoadSalePage);
         }
         #region Реализация комманд
@@ -49,10 +49,10 @@ namespace PL
         public void LoadCategoriesPage()
         {
         }
-        //public void LoadProductPage()
-        //{
-        //    CurrentView = new ProductsViewModel();
-        //}
+        public void LoadProductPage()
+        {
+            CurrentView = new ProductViewModel();
+        }
         //public void LoadSalePage()
         //{
         //    CurrentView = new SalesViewModel();

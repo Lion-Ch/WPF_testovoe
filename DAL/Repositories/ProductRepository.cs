@@ -13,7 +13,7 @@ namespace DAL.Repositories
     {
         public IEnumerable<Product> GetAll()
         {
-            return db.Products.ToList();
+            return db.Products.Include(i=>i.Category).ToList();
         }
         public void CreateRange(IEnumerable<Product> list)
         {
