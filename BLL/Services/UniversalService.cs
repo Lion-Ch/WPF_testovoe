@@ -18,9 +18,9 @@ namespace BLL.Services
         private IRepository<dbType> repository;
         private IMapper mapper;
 
-        public UniversalService(EFUnitOfWork uow)
+        public UniversalService()
         {
-            repository = uow.GetRepository<dbType>();
+            repository = new UniversalRepository<dbType>();
             mapper = CreateMap();
         }
 
@@ -113,6 +113,7 @@ namespace BLL.Services
         {
             repository.Save();
         }
+
 
         public virtual IEnumerable<dtoType> GetAll()
         {

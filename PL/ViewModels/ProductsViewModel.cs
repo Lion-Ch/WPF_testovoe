@@ -8,34 +8,40 @@ using PL.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace PL.ViewModels
 {
-    public class ProductsViewModel : BaseDataPageViewModel<ProductModel, ProductDTO>
+    public class ProductsViewModel : BaseDataPageViewModel<ProductModel, ProductDTO, Product>
     {
-        private ObservableCollection<CategoryModel> _categories;
-        public ObservableCollection<CategoryModel> Categories
-        {
-            get { return _categories; }
-            set { OnPropertyChanged(ref _categories, value); }
-        }
-        private UniversalService<Category, CategoryDTO> CategoryService;
+        private List<CategoryModel> Categories;
         public ProductsViewModel() 
-            : base(new UniversalService<Product,ProductDTO>(new EFUnitOfWork()))
         {
-            CategoryService = new UniversalService<Category, CategoryDTO>(new EFUnitOfWork());
-            Categories = mapper.Map<IEnumerable<CategoryDTO>,ObservableCollection<CategoryModel>>(CategoryService.GetAll());
+        }
+        public override void LoadRecords()
+        {
+            base.LoadRecords();
+            using(UniversalService<Category, CategoryDTO> CategoryService = new UniversalService<Category, CategoryDTO>())
+            {
+                Categories = mapper.Map<IEnumerable<CategoryDTO>, List<CategoryModel>>(CategoryService.GetAll());
+                foreach (ProductModel p in Records)
+                    p.Category = Categories.Where(x => x.Id == p.CategoryId).FirstOrDefault();
+            }
         }
         public override IMapper CreateMap()
         {
-            return new MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProductModel, ProductDTO>();
-                cfg.CreateMap<ProductDTO, ProductModel>();
+                cfg.CreateMap<ProductModel, ProductDTO>()
+                .ForMember(x => x.CategoryId, src => src.MapFrom(y => y.Category.Id));
+                cfg.CreateMap<ProductDTO, ProductModel>()
+                .ForMember(x => x.CategoryId, src => src.MapFrom(y => y.CategoryId));
                 cfg.CreateMap<CategoryModel, CategoryDTO>();
                 cfg.CreateMap<CategoryDTO, CategoryModel>();
-            }).CreateMapper();
+            });
+            return config.CreateMapper();
         }
     }
 }
+

@@ -14,9 +14,9 @@ namespace DAL.Repositories
     {
         private ShopContext db;
 
-        public UniversalRepository(ShopContext context)
+        public UniversalRepository()
         {
-            db = context;
+            db = new ShopContext();
         }
         public void Create(T item)
         {
@@ -50,7 +50,10 @@ namespace DAL.Repositories
             if(i!=null)
                 db.Remove(i);
         }
-
+        public IEnumerable<T> GetAll(List<int> listId)
+        {
+            return db.Set<T>().Where(t=>listId.Contains(t.Id)).ToList();
+        }
         public IEnumerable<T> GetAll()
         {
             return db.Set<T>().ToList();

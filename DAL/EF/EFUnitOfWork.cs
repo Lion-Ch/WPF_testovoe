@@ -19,7 +19,7 @@ namespace DAL.EF
         public IRepository<dbType> GetRepository<dbType>()
             where dbType : BaseEntity
         {
-            return new UniversalRepository<dbType>(db);
+            return new UniversalRepository<dbType>();
         }
 
         public void Save()

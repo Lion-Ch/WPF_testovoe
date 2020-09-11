@@ -13,11 +13,6 @@ namespace BLL.DTO
         public int Id { get; set; }
         public string Name { get; set; }
 
-        //public Category Copy()
-        //{
-        //    return new Category { Id = Id, Name = Name };
-        //}
-
         public ValidationResponse IsValid()
         {
             if (String.IsNullOrEmpty(Name))

@@ -10,17 +10,19 @@ namespace BLL.Services
 {
     public class ProductService: UniversalService<Product, ProductDTO>
     {
-        public ProductService(EFUnitOfWork uow) : base(uow)
+        public ProductService() : base()
         {
         }
 
         public override IMapper CreateMap()
         {
              return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ProductDTO, Product>();
-                cfg.CreateMap<Product, ProductDTO >();
-            }).CreateMapper();
+             {
+                 cfg.CreateMap<ProductDTO, Product>();
+                 cfg.CreateMap<Product, ProductDTO>();
+                 cfg.CreateMap<Category, CategoryDTO>();
+                 cfg.CreateMap<CategoryDTO, Category>();
+             }).CreateMapper();
         }
     }
 }

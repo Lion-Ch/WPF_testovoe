@@ -15,8 +15,8 @@ namespace PL
     public class AppViewModel: ObservableObject
     {
         #region Текущая View
-        private IDisposable _currentView;
-        public IDisposable CurrentView
+        private object _currentView;
+        public object CurrentView
         {
             get { return _currentView; }
             set { OnPropertyChanged(ref _currentView, value); }
@@ -48,8 +48,7 @@ namespace PL
         }
         public void LoadProductPage()
         {
-            CurrentView.Dispose();
-            CurrentView = new ProductsViewModel();
+            //CurrentView = new BaseDataPageViewModel<CategoryModel, CategoryDTO, Category>();
         }
         //public void LoadSalePage()
         //{

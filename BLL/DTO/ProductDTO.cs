@@ -1,5 +1,6 @@
 ﻿using BLL.Responses;
 using BLL.Validation;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,6 @@ namespace BLL.DTO
         public string Name { get; set; }
         public int Amount { get; set; }
         public int CategoryId { get; set; }
-        public CategoryDTO Category { get; set; }
 
         public ValidationResponse IsValid()
         {

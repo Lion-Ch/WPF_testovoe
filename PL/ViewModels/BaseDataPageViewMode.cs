@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Responses;
+using BLL.Services;
+using DAL.Entities;
 using PL.Responses;
 using PL.Utility;
 using PL.ViewModels.Interfaces;
@@ -11,16 +13,17 @@ using System.Windows.Input;
 
 namespace PL.ViewModels
 {
-    public class BaseDataPageViewModel<TypeRecord, dtoType> : ObservableObject, IDataPageService, IDisposable
+    public class BaseDataPageViewModel<TypeRecord, dtoType,dbType> : ObservableObject, IDataPageService
         where TypeRecord : ObservableObject, new()
         where dtoType : class
+        where dbType  : BaseEntity
     {
         #region Поля
         /// <summary>
         /// Сервис работающий с БД (DTO -> DB)
         /// Производит валидацию и другие бизнес процессы.
         /// </summary>
-        protected IDataService<dtoType> dataService;
+        //protected IDataService<dtoType> dataService;
         /// <summary>
         /// Mapper для преобразования Model в DTO и обратно.
         /// </summary>
@@ -83,9 +86,8 @@ namespace PL.ViewModels
         #endregion
 
         #region Конструктор
-        public BaseDataPageViewModel(IDataService<dtoType> c)
+        public BaseDataPageViewModel()
         {
-            dataService = c;
             mapper = CreateMap();
             NewRecord = new TypeRecord();
             Response = new ResponseModel();
@@ -129,45 +131,31 @@ namespace PL.ViewModels
         }
         public virtual void LoadRecords()
         {
-            Records = new ObservableCollection<TypeRecord>(mapper.Map<IEnumerable<dtoType>, List<TypeRecord>>(dataService.GetAll()));
+            using(UniversalService<dbType, dtoType> dataService = new UniversalService<dbType, dtoType>())
+            {
+                Records = new ObservableCollection<TypeRecord>(mapper.Map<IEnumerable<dtoType>, List<TypeRecord>>(dataService.GetAll()));
+            }
         }
         public virtual void SaveAllRecords()
         {
-            Response = dataService.CreateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListNewRecords));
-            if (Response.StatusResponse == StatusResponse.OK)
+            using(UniversalService<dbType, dtoType> dataService = new UniversalService<dbType, dtoType>())
             {
-                Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListDeletedRecords));
-                ListDeletedRecords.Clear();
+                Response = dataService.CreateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListNewRecords));
                 if (Response.StatusResponse == StatusResponse.OK)
                 {
-                    Response = dataService.UpdateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListChangedRecords));
-                    if (ListChangedRecords.Count > 1)
-                        ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
+                    Response = dataService.DeleteRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListDeletedRecords));
+                    ListDeletedRecords.Clear();
+                    if (Response.StatusResponse == StatusResponse.OK)
+                    {
+                        Response = dataService.UpdateRange(mapper.Map<List<TypeRecord>, IEnumerable<dtoType>>(ListChangedRecords));
+                        if (ListChangedRecords.Count > 1)
+                            ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
+                    }
                 }
+                ListNewRecords.Clear();
+                dataService.Save();
+                LoadRecords();
             }
-            ListNewRecords.Clear();
-            dataService.Save();
-            LoadRecords();
-        }
-        #endregion
-
-        #region Dispose
-        private bool disposed = false;
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    dataService.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
         #endregion
     }

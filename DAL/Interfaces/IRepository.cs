@@ -15,6 +15,7 @@ namespace DAL.Interfaces
         void UpdateRange(IEnumerable<T> list);
         void DeleteRange(IEnumerable<T> list);
 
+        public IEnumerable<T> GetAll(List<int> listId);
         IEnumerable<T> GetAll();
         void Save();
         void Dispose();

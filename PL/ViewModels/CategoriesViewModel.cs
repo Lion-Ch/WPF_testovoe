@@ -11,10 +11,9 @@ using System.Text;
 
 namespace PL.ViewModels
 {
-    public class CategoriesViewModel: BaseDataPageViewModel<CategoryModel, CategoryDTO>
+    public class CategoriesViewModel: BaseDataPageViewModel<CategoryModel, CategoryDTO, Category>
     {
         public CategoriesViewModel()
-            :base(new UniversalService<Category, CategoryDTO>(new EFUnitOfWork()))
         {
         }
     }
