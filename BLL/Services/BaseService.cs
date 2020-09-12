@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Responses;
 using DAL.EF;
 using DAL.Interfaces;
 using System;
@@ -19,25 +20,57 @@ namespace BLL.Services
             mapper = CreateMap();
         }
 
-        public virtual void CreateRange(IEnumerable<dtoType> list)
-        {
-            Repository.CreateRange(mapper.Map<IEnumerable<dbType>>(list));
-        }
-        public virtual void UpdateRange(IEnumerable<dtoType> list)
-        {
-            Repository.UpdateRange(mapper.Map<IEnumerable<dbType>>(list));
-        }
-        public virtual void DeleteRange(IEnumerable<dtoType> list)
-        {
-            Repository.DeleteRange(mapper.Map<IEnumerable<dbType>>(list));
-        }
         public virtual IEnumerable<dtoType> GetAll()
         {
-            return mapper.Map<IEnumerable<dbType>, List<dtoType>>(Repository.GetAll());
+            return InMap(Repository.GetAll());
         }
-        public void Save()
+        public virtual Response CreateRange(IEnumerable<dtoType> list)
         {
-            Repository.Save();
+            try
+            {
+                Repository.CreateRange(OutMap(list));
+                return new Response("Данные успешно добавлены", TypeRespone.OK);
+            }
+            catch(Exception ex)
+            {
+                return new Response(ex.ToString(), TypeRespone.ERROR);
+            }
+        }
+        public virtual Response UpdateRange(IEnumerable<dtoType> list)
+        {
+            try
+            {
+                Repository.UpdateRange(OutMap(list));
+                return new Response("Данны успешно изменены", TypeRespone.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), TypeRespone.ERROR);
+            }
+        }
+        public virtual Response DeleteRange(IEnumerable<dtoType> list)
+        {
+            try
+            {
+                Repository.DeleteRange(OutMap(list));
+                return new Response("Данные успешно удалены", TypeRespone.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), TypeRespone.ERROR);
+            }
+        }
+        public Response Save()
+        {
+            try
+            {
+                Repository.Save();
+                return new Response("Данные успешно сохранены", TypeRespone.OK);
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.ToString(), TypeRespone.ERROR);
+            }
         }
 
         public virtual IMapper CreateMap()
