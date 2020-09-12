@@ -15,17 +15,5 @@ namespace BLL.Services
         public ProductService() : base(new ProductRepository())
         {
         }
-
-        public override IMapper CreateMap()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Category, CategoryDTO>();
-                //cfg.CreateMap<CategoryDTO, Category>();
-                cfg.CreateMap<Product, ProductDTO>();
-                cfg.CreateMap<ProductDTO, Product>();
-            }
-               ).CreateMapper();
-        }
     }
 }
