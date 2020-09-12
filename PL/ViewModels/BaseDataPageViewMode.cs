@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Responses;
 using BLL.Services;
+using BLL.Validation;
 using PL.Utility;
 using PL.ViewModels.Interfaces;
 using System;
@@ -11,13 +13,12 @@ using System.Windows.Input;
 
 namespace PL.ViewModels
 {
-    public class BaseDataPageViewModel<modelType, dtoType,dbType, serviceType> : ObservableObject, IDataPageService<modelType>, IMapped<dtoType,modelType>
+    public class BaseDataPageViewModel<modelType, dtoType, dbType, serviceType> : ObservableObject, IDataPageService<modelType>, IMapped<dtoType, modelType>
         where modelType   : new()
-        where serviceType : BaseService<dbType,dtoType>, new()
+        where dtoType     : IValidatable
+        where serviceType : BaseService<dbType, dtoType>, new()
     {
         #region Поля
-        //protected IDataService<dtoType> dataService;
-
         protected IMapper mapper;
 
         protected List<modelType> ListNewRecords { get; set; }
@@ -26,6 +27,12 @@ namespace PL.ViewModels
         #endregion
 
         #region Свойства
+        private Response response;
+        public Response Response
+        {
+            get { return response; }
+            set { OnPropertyChanged(ref response, value); }
+        }
 
         private modelType _selectedRecord;
         public modelType SelectedRecord
@@ -34,7 +41,7 @@ namespace PL.ViewModels
             set
             {
                 if (value != null)
-                    if (ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0)
+                    if ((ListChangedRecords.IndexOf(value) == -1 || ListChangedRecords.Count == 0) && ListNewRecords.IndexOf(value)==-1)
                         ListChangedRecords.Add(value);
                 OnPropertyChanged(ref _selectedRecord, value);
             }
@@ -109,6 +116,8 @@ namespace PL.ViewModels
         {
             if (SelectedRecord != null)
             {
+                ListChangedRecords.Remove(SelectedRecord);
+
                 if (ListNewRecords.IndexOf(SelectedRecord) >= 0)
                 {
                     ListNewRecords.Remove(SelectedRecord);
@@ -130,27 +139,41 @@ namespace PL.ViewModels
         {
             using (BaseService<dbType, dtoType> dataService = new serviceType())
             {
-                Records = new ObservableCollection<modelType>(mapper.Map<IEnumerable<modelType>>(dataService.GetAll()));
+                Records = new ObservableCollection<modelType>(InMap(dataService.GetAll()));
             }
         }
         public virtual void SaveAllRecords()
         {
+            Response = new Response("", TypeRespone.OK);
             using (BaseService<dbType, dtoType> dataService = new serviceType())
             {
-                dataService.CreateRange(mapper.Map<IEnumerable<dtoType>>(ListNewRecords));
-                dataService.UpdateRange(mapper.Map<IEnumerable<dtoType>>(ListChangedRecords));
-                dataService.DeleteRange(mapper.Map<IEnumerable<dtoType>>(ListDeletedRecords));
+                if (ListNewRecords.Count != 0)
+                    Response = dataService.CreateRange(OutMap(ListNewRecords));
 
+                if (Response.Status == TypeRespone.OK)
+                {
+                    if (ListChangedRecords.Count != 0)
+                        Response = dataService.UpdateRange(OutMap(ListChangedRecords));
 
-                if (ListChangedRecords.Count > 1)
-                    ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
-                ListNewRecords.Clear();
-                ListDeletedRecords.Clear();
-
-                dataService.Save();
+                    if (Response.Status == TypeRespone.OK)
+                    {
+                        if (ListDeletedRecords.Count != 0)
+                            Response = dataService.DeleteRange(OutMap(ListDeletedRecords));
+                    }
+                }
+                if (Response.Status == TypeRespone.OK)
+                {
+                    Response = dataService.Save();
+                    if(Response.Status == TypeRespone.OK)
+                    {
+                        if (ListChangedRecords.Count > 1)
+                            ListChangedRecords.RemoveRange(1, ListChangedRecords.Count - 1);
+                        ListNewRecords.Clear();
+                        ListDeletedRecords.Clear();
+                        LoadRecords();
+                    }
+                }
             }
-
-            LoadRecords();
         }
         #endregion
     }

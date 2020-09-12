@@ -34,29 +34,29 @@ namespace PL
         #endregion
         public AppViewModel()
         {
-
             CurrentView = new CategoriesViewModel();
             LoadCategoriesPageCommand = new RelayCommand(LoadCategoriesPage);
             LoadProductPageCommand = new RelayCommand(LoadProductPage);
-            //LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
-            //LoadSalePageCommand = new RelayCommand(LoadSalePage);
+            LoadEmployeePageCommand = new RelayCommand(LoadEmployeePage);
+            LoadSalePageCommand = new RelayCommand(LoadSalePage);
         }
         #region Реализация комманд
-        //public void LoadEmployeePage()
-        //{
-        //    CurrentView = new EmployeesViewModel();
-        //}
+        public void LoadEmployeePage()
+        {
+            CurrentView = new EmployeeViewModel();
+        }
         public void LoadCategoriesPage()
         {
+            CurrentView = new CategoriesViewModel();
         }
         public void LoadProductPage()
         {
             CurrentView = new ProductViewModel();
         }
-        //public void LoadSalePage()
-        //{
-        //    CurrentView = new SalesViewModel();
-        //}
+        public void LoadSalePage()
+        {
+            CurrentView = new SaleViewModel();
+        }
         #endregion
     }
 }

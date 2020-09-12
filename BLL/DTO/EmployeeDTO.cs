@@ -10,7 +10,7 @@ namespace BLL.DTO
         public int Id { get; set; }
         public string FullName { get; set; }
 
-        public bool IsValid(string errorText)
+        public bool IsValid(ref string errorText)
         {
             if (String.IsNullOrEmpty(FullName))
             {

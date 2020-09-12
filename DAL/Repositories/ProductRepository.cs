@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class ProductRepository: BaseRepository, IRepository<Product>
+    public class ProductRepository: BaseRepository, IRepository<Product>, IDisposable
     {
         public IEnumerable<Product> GetAll()
         {
@@ -40,6 +40,16 @@ namespace DAL.Repositories
                 if (a != null)
                     db.Products.Remove(a);
             }
+        }
+
+        public Product Get(Product item)
+        {
+            return db.Products.Find(item.Id);
+        }
+
+        public Product Get(int id)
+        {
+            return db.Products.Find(id);
         }
     }
 }

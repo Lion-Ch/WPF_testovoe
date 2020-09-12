@@ -41,5 +41,15 @@ namespace DAL.Repositories
                     db.Employees.Remove(a);
             }
         }
+
+        public Employee Get(Employee item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Employee Get(int id)
+        {
+            return db.Employees.Find(id);
+        }
     }
 }

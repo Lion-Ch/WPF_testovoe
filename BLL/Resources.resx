@@ -137,6 +137,9 @@
   <data name="HaveRecordInBase" xml:space="preserve">
     <value>Данная запись уже имеется в базе данных</value>
   </data>
+  <data name="NotHaveCategory" xml:space="preserve">
+    <value>Не выбрана категория товара</value>
+  </data>
   <data name="NotHaveProduct" xml:space="preserve">
     <value>Не имеется такого количества продукта на складе</value>
   </data>

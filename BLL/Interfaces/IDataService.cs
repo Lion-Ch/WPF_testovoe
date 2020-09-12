@@ -8,10 +8,17 @@ namespace BLL.Interfaces
     public interface IDataService<T>
     {
         IEnumerable<T> GetAll();
-        Response CreateRange(IEnumerable<T> item);
-        Response UpdateRange(IEnumerable<T> item);
-        Response DeleteRange(IEnumerable<T> id);
+        T Get(int id);
+        Response CreateRange(IEnumerable<T> list);
+        Response UpdateRange(IEnumerable<T> list);
+        Response DeleteRange(IEnumerable<T> list);
         Response Save();
+
+        Response PreparationRange(IEnumerable<T> list);
+        Response PreparationObject(T item);
+        Response IsValidRange(IEnumerable<T> list);
+        Response IsValidObject(T item);
+
         void Dispose();
     }
 }

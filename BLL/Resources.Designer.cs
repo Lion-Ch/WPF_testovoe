@@ -115,6 +115,15 @@ namespace BLL {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не выбрана категория товара.
+        /// </summary>
+        internal static string NotHaveCategory {
+            get {
+                return ResourceManager.GetString("NotHaveCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Не имеется такого количества продукта на складе.
         /// </summary>
         internal static string NotHaveProduct {

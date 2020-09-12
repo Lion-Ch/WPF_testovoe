@@ -30,8 +30,7 @@ namespace PL.ViewModels
                 cfg.CreateMap<CategoryDTO, CategoryModel>();
                 cfg.CreateMap<ProductModel, ProductDTO>();
                 cfg.CreateMap<ProductDTO, ProductModel>();
-            }
-                  ).CreateMapper();
+            }).CreateMapper();
         }
     }
 }

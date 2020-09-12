@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Responses;
-using DAL.EF;
+using BLL.Validation;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BLL.Services
 {
     public class BaseService<dbType,dtoType>: IDataService<dtoType>, IMapped<dbType,dtoType>, IDisposable
+        where dtoType: IValidatable
     {
         protected IRepository<dbType> Repository { get; set; }
         protected IMapper mapper { get; set; }
@@ -24,29 +25,45 @@ namespace BLL.Services
         {
             return InMap(Repository.GetAll());
         }
+        public virtual dtoType Get(int id)
+        {
+            return mapper.Map<dtoType>(Repository.Get(id));
+        }
         public virtual Response CreateRange(IEnumerable<dtoType> list)
         {
-            try
+            Response res = IsValidRange(list);
+            if(res.Status == TypeRespone.OK)
             {
-                Repository.CreateRange(OutMap(list));
-                return new Response("Данные успешно добавлены", TypeRespone.OK);
+                try
+                {
+                    Repository.CreateRange(OutMap(list));
+                    return new Response("Данные успешно добавлены", TypeRespone.OK);
+                }
+                catch (Exception ex)
+                {
+                    return new Response(ex.ToString(), TypeRespone.ERROR);
+                }
             }
-            catch(Exception ex)
-            {
-                return new Response(ex.ToString(), TypeRespone.ERROR);
-            }
+
+            return res;
         }
         public virtual Response UpdateRange(IEnumerable<dtoType> list)
         {
-            try
+            Response res = IsValidRange(list);
+            if (res.Status == TypeRespone.OK)
             {
-                Repository.UpdateRange(OutMap(list));
-                return new Response("Данны успешно изменены", TypeRespone.OK);
+                try
+                {
+                    Repository.UpdateRange(OutMap(list));
+                    return new Response("Данны успешно изменены", TypeRespone.OK);
+                }
+                catch (Exception ex)
+                {
+                    return new Response(ex.ToString(), TypeRespone.ERROR);
+                }
             }
-            catch (Exception ex)
-            {
-                return new Response(ex.ToString(), TypeRespone.ERROR);
-            }
+
+            return res;
         }
         public virtual Response DeleteRange(IEnumerable<dtoType> list)
         {
@@ -67,10 +84,49 @@ namespace BLL.Services
                 Repository.Save();
                 return new Response("Данные успешно сохранены", TypeRespone.OK);
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
                 return new Response(ex.ToString(), TypeRespone.ERROR);
             }
+        }
+        public virtual Response IsValidRange(IEnumerable<dtoType> list)
+        {
+            Response res = new Response("", TypeRespone.OK);
+            foreach (dtoType c in list)
+            {
+                res = IsValidObject(c);
+                if (res.Status != TypeRespone.OK)
+                    return res;
+            }
+            return res;
+        }
+        public virtual Response IsValidObject(dtoType item)
+        {
+            string errorText = "";
+            if (!item.IsValid(ref errorText))
+            {
+                return new Response(errorText, TypeRespone.WARNING);
+            }
+            else
+                return new Response("", TypeRespone.OK);
+        }
+
+        public virtual Response PreparationRange(IEnumerable<dtoType> list)
+        {
+
+            Response res = new Response("", TypeRespone.OK);
+            foreach (dtoType ob in list)
+            {
+                res = PreparationObject(ob);
+                if (res.Status != TypeRespone.OK)
+                    return res;
+            }
+            return res;
+        }
+
+        public virtual Response PreparationObject(dtoType item)
+        {
+            return new Response("", TypeRespone.OK);
         }
 
         public virtual IMapper CreateMap()

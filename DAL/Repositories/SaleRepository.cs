@@ -13,7 +13,7 @@ namespace DAL.Repositories
     {
         public IEnumerable<Sale> GetAll()
         {
-            return db.Sales.ToList();
+            return db.Sales.Include(i => i.Product).Include(i => i.Employee).ToList();
         }
         public void CreateRange(IEnumerable<Sale> list)
         {
@@ -40,6 +40,16 @@ namespace DAL.Repositories
                 if (a != null)
                     db.Sales.Remove(a);
             }
+        }
+
+        public Sale Get(Sale item)
+        {
+            return db.Sales.Find(item.EmployeeId, item.ProductId);
+        }
+
+        public Sale Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

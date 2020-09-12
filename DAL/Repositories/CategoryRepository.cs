@@ -9,11 +9,16 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : BaseRepository, IRepository<Category>
+    public class CategoryRepository : BaseRepository, IRepository<Category>, IDisposable
     {
         public IEnumerable<Category> GetAll()
         {
             return db.Categories.AsNoTracking().ToList();
+        }
+
+        public Category Get(Category item)
+        {
+            return db.Categories.Find(item.Id);
         }
         public void CreateRange(IEnumerable<Category> list)
         {
@@ -38,6 +43,11 @@ namespace DAL.Repositories
                 if (a != null)
                     db.Categories.Remove(a);
             }
+        }
+
+        public Category Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
