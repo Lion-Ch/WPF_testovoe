@@ -9,45 +9,15 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : BaseRepository, IRepository<Category>, IDisposable
+    public class CategoryRepository : BaseRepository<Category>
     {
-        public IEnumerable<Category> GetAll()
+        public override Category Get(int id)
         {
-            return db.Categories.AsNoTracking().ToList();
+            return db.Categories.Find(id);
         }
-
-        public Category Get(Category item)
+        public override Category Find(Category item)
         {
             return db.Categories.Find(item.Id);
-        }
-        public void CreateRange(IEnumerable<Category> list)
-        {
-            db.Categories.AddRange(list);
-        }
-        public void UpdateRange(IEnumerable<Category> list)
-        {
-            foreach(Category ob in list)
-            {
-                Category original = db.Categories.Find(ob.Id);
-
-                if (original != null)
-                    db.Entry(original).CurrentValues.SetValues(ob);
-            }
-        }
-        public void DeleteRange(IEnumerable<Category> list)
-        {
-            foreach(Category ob in list)
-            {
-                Category a = db.Categories.Find(ob.Id);
-
-                if (a != null)
-                    db.Categories.Remove(a);
-            }
-        }
-
-        public Category Get(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

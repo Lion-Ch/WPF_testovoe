@@ -9,47 +9,19 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class ProductRepository: BaseRepository, IRepository<Product>, IDisposable
+    public class ProductRepository: BaseRepository<Product>
     {
-        public IEnumerable<Product> GetAll()
+        public override Product Get(int id)
         {
-            return db.Products.Include(i=>i.Category).ToList();
+            return db.Products.Find(id);
         }
-        public void CreateRange(IEnumerable<Product> list)
-        {
-            db.Products.AddRange(list);
-        }
-        public void UpdateRange(IEnumerable<Product> list)
-        {
-            foreach (Product ob in list)
-            {
-                Product original = db.Products.Find(ob.Id);
-
-                if (original != null)
-                {
-                    db.Entry(original).CurrentValues.SetValues(ob);
-                }
-            }
-        }
-        public void DeleteRange(IEnumerable<Product> list)
-        {
-            foreach (Product ob in list)
-            {
-                Product a = db.Products.Find(ob.Id);
-
-                if (a != null)
-                    db.Products.Remove(a);
-            }
-        }
-
-        public Product Get(Product item)
+        public override Product Find(Product item)
         {
             return db.Products.Find(item.Id);
         }
-
-        public Product Get(int id)
+        public override IEnumerable<Product> GetAll()
         {
-            return db.Products.Find(id);
+            return db.Products.Include(i => i.Category).ToList();
         }
     }
 }

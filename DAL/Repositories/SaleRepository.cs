@@ -9,47 +9,20 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class SaleRepository: BaseRepository, IRepository<Sale>
+    public class SaleRepository: BaseRepository<Sale>
     {
-        public IEnumerable<Sale> GetAll()
-        {
-            return db.Sales.Include(i => i.Product).Include(i => i.Employee).ToList();
-        }
-        public void CreateRange(IEnumerable<Sale> list)
-        {
-            db.Sales.AddRange(list);
-        }
-        public void UpdateRange(IEnumerable<Sale> list)
-        {
-            foreach (Sale ob in list)
-            {
-                Sale original = db.Sales.Find(ob.EmployeeId,ob.ProductId);
-
-                if (original != null)
-                {
-                    db.Entry(original).CurrentValues.SetValues(ob);
-                }
-            }
-        }
-        public void DeleteRange(IEnumerable<Sale> list)
-        {
-            foreach (Sale ob in list)
-            {
-                Sale a = db.Sales.Find(ob.EmployeeId,ob.ProductId);
-
-                if (a != null)
-                    db.Sales.Remove(a);
-            }
-        }
-
-        public Sale Get(Sale item)
+        public override Sale Find(Sale item)
         {
             return db.Sales.Find(item.EmployeeId, item.ProductId);
         }
 
-        public Sale Get(int id)
+        public override Sale Get(Sale item)
         {
-            throw new NotImplementedException();
+            return db.Sales.Find(item.EmployeeId, item.ProductId);
+        }
+        public override IEnumerable<Sale> GetAll()
+        {
+            return db.Sales.Include(i => i.Product).Include(i => i.Employee).ToList();
         }
     }
 }

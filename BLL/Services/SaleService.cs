@@ -25,12 +25,6 @@ namespace BLL.Services
             return base.CreateRange(list);
         }
 
-        public override Response IsValidObject(SaleDTO item)
-        {
-            
-            return base.IsValidObject(item);
-        }
-
         public override Response PreparationObject(SaleDTO item)
         {
             Sale s = Repository.Get(mapper.Map<Sale>(item));
@@ -45,7 +39,7 @@ namespace BLL.Services
                     if (amountProduct < item.Amount)
                         return new Response($"Товара {p.Name} всего {amountProduct} шт. на складе!", TypeRespone.WARNING);
                     else
-                        p.Amount -= item.Amount - item.Amount;
+                        p.Amount -= item.Amount;
 
                     prodRep.Save();
                 }

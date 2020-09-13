@@ -9,9 +9,10 @@ namespace DAL.Interfaces
         IEnumerable<T> GetAll();
         T Get(T item);
         T Get(int id);
-        void CreateRange(IEnumerable<T> item);
-        void UpdateRange(IEnumerable<T> item);
-        void DeleteRange(IEnumerable<T> item);
+        T Find(T item);
+        void CreateRange(IEnumerable<T> list);
+        void UpdateRange(IEnumerable<T> list);
+        void DeleteRange(IEnumerable<T> list);
         void Save();
         void Dispose();
     }

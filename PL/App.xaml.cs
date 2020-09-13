@@ -1,5 +1,4 @@
-﻿using BLL.Infrastructure;
-using Ninject;
+﻿using Ninject;
 using Ninject.Modules;
 using PL.Utility;
 using System;
