@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WPF_testovoe"
              xmlns:vm="clr-namespace:WPF_testovoe.ViewModels"
-             xmlns:vCategory="clr-namespace:WPF_testovoe.Views.CategoryPage"
-             xmlns:vEmployee="clr-namespace:WPF_testovoe.Views.EmpoyeePage"
              xmlns:vProduct="clr-namespace:WPF_testovoe.Views.ProductPage"
+             xmlns:vEmployee="clr-namespace:WPF_testovoe.Views.EmpoyeePage"
+             xmlns:vCategory="clr-namespace:WPF_testovoe.Views.CategoryPage"
              xmlns:vSales="clr-namespace:WPF_testovoe.Views.SalesPage"
              xmlns:m="clr-namespace:WPF_testovoe.Entity.Model"
              StartupUri="MainWindow.xaml">

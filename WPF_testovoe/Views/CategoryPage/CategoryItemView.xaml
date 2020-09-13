@@ -12,7 +12,7 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Column="0" Background="{StaticResource Geyser}">
                 <TextBlock Grid.Column="0" Text="{Binding Id}"
                            FontSize="18" FontWeight="Bold" 

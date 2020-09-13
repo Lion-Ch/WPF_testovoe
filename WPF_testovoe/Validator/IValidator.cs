@@ -10,7 +10,7 @@ namespace WPF_testovoe.Validator
         public string ErrorText { get; }
 
 
-        public bool IsValid(Category category);
+        public bool IsValid(Category Category);
         public bool IsValid(Product  product);
         public bool IsValid(Employee employee);
         public bool IsValid(Sale     sale);

@@ -78,6 +78,7 @@ namespace WPF_testovoe.ViewModels
 
             ListNewRecords.Clear();
             ListDeletedRecords.Clear();
+
         }
         #endregion
     }

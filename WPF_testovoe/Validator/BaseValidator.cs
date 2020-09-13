@@ -84,9 +84,9 @@ namespace WPF_testovoe.Validator
         //Создать единое обобщение для ниже приведенных методов
         //не позволяет c#
 
-        public bool IsValid(IEnumerable<Category> categories)
+        public bool IsValid(IEnumerable<Product> products)
         {
-            foreach(Category c in categories)
+            foreach(Product c in products)
             {
                 if (!IsValid(c))
                     return false;
@@ -95,9 +95,9 @@ namespace WPF_testovoe.Validator
             return true;
         }
 
-        public bool IsValid(IEnumerable<Product> products)
+        public bool IsValid(IEnumerable<Category> categories)
         {
-            foreach (Product c in products)
+            foreach (Category c in categories)
             {
                 if (!IsValid(c))
                     return false;

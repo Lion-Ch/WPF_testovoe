@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 namespace WPF_testovoe.Views.CategoryPage
 {
     /// <summary>
-    /// Логика взаимодействия для CategoryView.xaml
+    /// Логика взаимодействия для UserControl1.xaml
     /// </summary>
     public partial class CategoryView : UserControl
     {
