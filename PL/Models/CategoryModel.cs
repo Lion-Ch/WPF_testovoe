@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PL.Models
 {
-    public class CategoryModel
+    public sealed class CategoryModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public class Sale 
+    public sealed class Sale 
     {
         public int Amount { get; set; }
 

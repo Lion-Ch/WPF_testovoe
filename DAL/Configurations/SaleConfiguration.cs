@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DAL.Configurations
 {
-    public class SaleConfiguration : IEntityTypeConfiguration<Sale>
+    public sealed class SaleConfiguration : IEntityTypeConfiguration<Sale>
     {
         public void Configure(EntityTypeBuilder<Sale> builder)
         {

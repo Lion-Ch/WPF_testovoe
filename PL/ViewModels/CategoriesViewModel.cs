@@ -11,7 +11,7 @@ using System.Text;
 
 namespace PL.ViewModels
 {
-    public class CategoriesViewModel: BaseDataPageViewModel<CategoryModel, CategoryDTO,Category,CategoryService>
+    public sealed class CategoriesViewModel: BaseDataPageViewModel<CategoryModel, CategoryDTO,Category,CategoryService>
     {
     }
 }

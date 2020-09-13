@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PL.ViewModels
 {
-    public class EmployeeViewModel : BaseDataPageViewModel<EmployeeModel, EmployeeDTO, Employee, EmployeeService>
+    public sealed class EmployeeViewModel : BaseDataPageViewModel<EmployeeModel, EmployeeDTO, Employee, EmployeeService>
     {
     }
 }

@@ -5,7 +5,7 @@ using System.Configuration;
 
 namespace DAL.EF
 {
-    public class ShopContext : DbContext
+    public sealed class ShopContext : DbContext
     {
         private string connectionString;
 

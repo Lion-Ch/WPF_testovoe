@@ -10,7 +10,7 @@ using System.Text;
 
 namespace PL.ViewModels
 {
-    public class ProductViewModel: BaseDataPageViewModel<ProductModel,ProductDTO,Product,ProductService>
+    public sealed class ProductViewModel: BaseDataPageViewModel<ProductModel,ProductDTO,Product,ProductService>
     {
         public ObservableCollection<CategoryModel> Categories { get; set; }
 

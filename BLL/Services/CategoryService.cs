@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace BLL.Services
 {
-    public class CategoryService : BaseService<Category,CategoryDTO>
+    public sealed class CategoryService : BaseService<Category,CategoryDTO>
     {
         public CategoryService():base(new CategoryRepository())
         {

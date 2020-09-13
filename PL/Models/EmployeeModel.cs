@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PL.Models
 {
-    public class EmployeeModel: ObservableObject
+    public sealed class EmployeeModel: ObservableObject
     {
         public int Id { get; set; }
         private string fullName;

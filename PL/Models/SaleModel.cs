@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PL.Models
 {
-    public class SaleModel: ObservableObject
+    public sealed class SaleModel: ObservableObject
     {
         private int amount;
         public int Amount

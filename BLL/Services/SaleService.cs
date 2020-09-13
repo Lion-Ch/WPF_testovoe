@@ -11,7 +11,7 @@ using System.Text;
 
 namespace BLL.Services
 {
-    public class SaleService:BaseService<Sale,SaleDTO> 
+    public sealed class SaleService:BaseService<Sale,SaleDTO> 
     {
         public SaleService() : base(new SaleRepository())
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BLL.DTO
 {
-    public class SaleDTO: IValidatable
+    public sealed class SaleDTO: IValidatable
     {
         public int Amount { get; set; }
 

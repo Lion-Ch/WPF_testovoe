@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : BaseRepository<Category>
+    public sealed class CategoryRepository : BaseRepository<Category>
     {
         public override Category Get(int id)
         {

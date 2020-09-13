@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BLL.DTO
 {
-    public class CategoryDTO: IValidatable
+    public sealed class CategoryDTO: IValidatable
     {
         public int Id { get; set; }
         public string Name { get; set; }

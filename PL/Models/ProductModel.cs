@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PL.Models
 {
-    public class ProductModel:ObservableObject
+    public sealed class ProductModel:ObservableObject
     {
         public int Id { get; set; }
 
