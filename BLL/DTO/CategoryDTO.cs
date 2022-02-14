@@ -13,6 +13,7 @@ namespace BLL.DTO
 
         public bool IsValid(ref string errorText)
         {
+            //
             if (String.IsNullOrEmpty(Name))
             {
                 errorText = Resources.StringValidateError + $" Категория ID:{Id}";
